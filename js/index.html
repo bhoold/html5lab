@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+	<meta charset="utf-8" />
+	<title> New Document </title>
+	<meta http-equiv="Content-Language" content="zh-cn" />
+</head>
+<body>
+<span class="tip">Math.sin函数应用</span>
+<script>
+function start(e){
+//函数应用 document.body.offsetWidth
+
+//图像
+/*
+	for(var i=0;i<=1919;i+=1){//静态图
+		var div=document.createElement("div");
+		div.style.left=i+"px";
+		div.style.top=(Math.sin(i*(Math.PI/180))*100)+500+"px";
+		document.body.appendChild(div);
+
+		div=document.createElement("a");
+		div.style.left=i+"px";
+		div.style.top="501px";
+		document.body.appendChild(div);
+	}
+*/
+	var e=e||'sin';
+	var i=0;
+	var t=setInterval(function(){//动态图
+		var div=document.createElement("div");
+		div.style.left=i+"px";
+		div.style.top=(eval('Math.'+e+'(i*(Math.PI/180))')*100)+500+"px";
+		document.body.appendChild(div);
+
+		div=document.createElement("a");
+		div.style.left=i+"px";
+		div.style.top="501px";
+		document.body.appendChild(div);
+		if(i>=1919)clearInterval(t);
+		i+=1;
+	},10);
+
+	//摆动
+	div=document.createElement("a");
+	div.style.left="500px";
+	div.style.top="100px";
+	div.style.width="10px";
+	div.style.height="10px";
+	document.body.appendChild(div);
+	var s=0;
+	setInterval(function(){
+		s+=1;
+		w=(eval('Math.'+e+'(s*(Math.PI/180))')*100)+500;
+		div.style.left=w+"px";
+		if(s>=360)s=0;
+	},10);
+}
+start('sin');
+
+</script>
+<style>
+*{padding:0;margin:0;}
+span.tip{color:#fff;}
+div{
+width:1px;
+height:1px;
+background:red;
+position:absolute;
+}
+a{
+display:block;
+width:1px;
+height:1px;
+background:blue;
+position:absolute;
+}
+body{background:#000;}
+</style>
+</body>
+<html>
