@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+	<meta charset="utf-8" />
+	<title> Grid </title>
+  <META name="Author" content="">
+  <META name="Keywords" content="">
+  <META name="Description" content="">
+  <meta name="viewport" content="width=device-width,height=device-height,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+<style type="text/css">
+  body{
+    height: 100%;
+    margin: 0;
+    padding: 0;
+  }
+  #wrapper{
+    position: relative;
+    width: 500px;
+    height: 500px;
+    background-color: blue;
+  }
+  .spirit{
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    background-color: red;
+  }
+  #log{
+    color: #ffffff;
+  }
+body[orient=landscape]{  
+background-color: #ff0000;  
+}  
+body[orient=portrait]{  
+background-color: #00ffff;  
+}  
+
+</style>
+</head>
+<body id="body">
+<div id="wrapper"><div id = "log"></div></div>
+<script type="text/javascript">
+  var canvas = document.getElementById('wrapper');
+  var log = document.getElementById('log');
+  var body = document.body;
+  var spirit,startX,startY;
+  var count = 0;
+  function touchStart(event){console.log('start');
+    event.preventDefault();
+    if(!event.touches.length)return;
+    var touch = event.touches[0];
+    startX = touch.pageX;
+    startY = touch.pageY;
+    spirit = document.createElement('div');
+    spirit.className = 'spirit';
+    spirit.style.left = startX;
+    spirit.style.top = startY;
+    canvas.appendChild(spirit);
+    log.innerHTML +=' : '+event;
+
+  }
+  function touchMove(event){console.log('move');
+    event.preventDefault();
+    if(!spirit || !event.touches.length)return;
+    var touch = event.touches[0];
+    var x = touch.pageX,y = touch.pageY;
+    spirit.style.webkitTransform = 'translate(' + x + 'px,' + y + 'px)';
+    log.innerHTML +=' : '+spirit.style.left;
+
+
+  }
+  function touchEnd(event){console.log('end');
+    if (!spirit) return;
+    canvas.removeChild(spirit);
+    spirit = null;
+  }
+
+  function gesturestart(){
+     log.innerHTML +=' : 11111111';
+  }
+
+
+
+  canvas.addEventListener('touchstart',touchStart,false);
+  canvas.addEventListener('touchmove',touchMove,false);
+  canvas.addEventListener('touchend',touchEnd,false);
+  canvas.addEventListener('gesturestart',gesturestart,false);
+  canvas.ongesturechange = function(e){
+    alert(222)
+  }
+  window.onorientationchange = function(e){
+    alert(33333333)
+  }
+</script>
+</body>
+</html>

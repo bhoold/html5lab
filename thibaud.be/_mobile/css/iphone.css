@@ -1,0 +1,19 @@
+@charset "utf-8";
+
+/*
+ *
+ *	@titre: iphone.
+ *	@description: iphone stylesheet.
+ *	@auteur: neov - http://www.neov.net.
+ *	@creation: 20110119.
+ *	@modification: - .
+ *
+ */
+
+embed,
+object,
+audio { display:none; }
+
+.galleryContent .navigation a:hover { background-position:-40px 0; }
+
+div.jp-video { overflow:visible; margin:0 0 60px; }

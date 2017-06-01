@@ -1,0 +1,504 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <meta name="viewport" content="width=device-width, minimum-scale=1, maximum-scale=1">
+
+        <title>Thibaud's Portfolio</title>
+        <meta name="description" content="">
+        <meta name="keywords" content="style01">
+        <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+        <script src="js/swfobject.js" type="text/javascript"></script>
+        <script src="js/swfaddress.js" type="text/javascript"></script>
+<script type="text/javascript">
+<!--
+
+	var seoFile = false;
+	var firstLoad = true;
+    var baseUrl = '';
+	var websites = [{"uids":",477,478,2716,2717,2718,585,2128,2146,2149,602,612,2124,623,2426,2114,2472,2473,2501,2499,2470,627,2465,2423,2732,2676,2707,2508,2469,2094,2096,2107,2709,","uid":"477","html":"index","name":"Thibaud","title":"Thibaud's Portfolio","lang":"","langAttr":""},{"uids":",2150,2151,2720,2721,2722,2274,2135,2276,2277,2278,2279,2281,2160,2565,2566,2568,2569,2570,2571,2572,2314,2601,2602,2736,2680,2603,2604,2605,2606,2607,2608,2710,","uid":"2150","html":"style02","name":"style02","title":"Thibaud's Portfolio - style 02","lang":"","langAttr":""},{"uids":",2175,2176,2724,2725,2726,2177,2655,2656,2657,2658,2659,2660,2185,2583,2584,2586,2587,2588,2589,2590,2193,2610,2611,2746,2690,2612,2613,2614,2615,2616,2617,2711,","uid":"2175","html":"style03","name":"style03","title":"Thibaud's Portfolio - style 03","lang":"","langAttr":""},{"uids":",1975,2027,2728,2729,2730,2376,2377,2378,2379,2380,2381,2674,2217,2619,2620,2756,2700,2621,2622,2623,2624,2625,2626,2018,2628,2629,2630,2632,2633,2634,2635,2713,","uid":"1975","html":"style04","name":"style04","title":"Thibaud's Portfolio - style 04","lang":"","langAttr":""},{"uids":",2757,2758,2759,2760,2761,2762,2763,2764,2765,2766,2767,","uid":"2757","html":"lexus","name":"lexus","title":"lexus","lang":"","langAttr":"","password":"2008"},{"uids":",2768,2769,2775,2777,2774,2773,2772,2778,2784,","uid":"2768","html":"Stromboli","name":"Stromboli","title":"Stromboli","lang":"","langAttr":""},{"uids":",2785,2786,2795,2792,2796,","uid":"2785","html":"Demand","name":"Demand","title":"Stromboli","lang":"","langAttr":""},{"uids":",2797,2798,2800,2801,2802,2803,2804,2805,2806,2807,2808,2809,","uid":"2797","html":"lexus2013","name":"lexus2013","title":"lexus2013","lang":"","langAttr":""},{"uids":",2810,2818,2817,2819,2811,2815,2816,2814,2822,2826,2827,2828,2829,2830,2836,2831,2832,2835,2833,2834,","uid":"2810","html":"exxon","name":"exxon","title":"exxon","lang":"","langAttr":""},{"uids":",2837,2852,2860,2862,2861,2865,2866,2871,2870,2872,2873,2876,2879,2880,2882,2888,2889,2892,2893,2883,2884,2885,2886,2887,2890,2891,","uid":"2837","html":"exxon-i3","name":"exxon-i3","title":"exxon","lang":"","langAttr":""}];
+	var websiteIndex = 0;
+	var code = '';
+	function urlHash(strHash) {
+		if (strHash) {
+			window.location.hash = strHash;
+			if (/MSIE/.test(navigator.userAgent)) document.title = "Thibaud's Portfolio";
+		}
+		return window.location.hash; 
+	};
+		var flashvars = {
+			theXML: "public20130417162451.xml",
+			mailServer: "/flashmailform.php",
+			mediaServer: "",
+			assetsServer: "/"
+		};
+		var params = {
+			menu: "false",
+			scale: "noScale",
+			allowFullscreen: "true",
+			allowScriptAccess: "always",
+			bgcolor: "#333333"
+		};
+		var attributes = {
+			id:"piki_base"
+		};
+		var hash = window.location.hash;
+		if (hash.substr(0,1) == "#") {
+			hash = hash.substr(1);
+		}
+		flashvars.hash = encodeURIComponent(hash);
+		if (typeof app=='undefined') {
+			var app = {
+				files:[], 
+				grp:-1,
+				grpCount:0
+			};
+			app.addFile = function (grp, filename, filetype, media) {
+				if (filetype=="js"){ //an external JavaScript file
+					var fileref=document.createElement('script');
+					fileref.setAttribute("type","text/javascript");
+					fileref.setAttribute("src", filename);
+					fileref.onload = checkLoad; // Run checkLoad() once script has loaded
+					fileref.onreadystatechange = function () { // Same thing but for IE
+						if (this.readyState == 'complete' || this.readyState == 'loaded') checkLoad();
+					}
+					this.files.push({grp:grp, fileref:fileref, filename:filename});
+
+				} else if (filetype=="css"){ //an external CSS file, no way to spy the load complete
+					var fileref=document.createElement("link");
+					fileref.setAttribute("rel", "stylesheet");
+					fileref.setAttribute("type", "text/css");
+					fileref.setAttribute("href", filename);
+					fileref.setAttribute("media", media);
+					document.getElementsByTagName("head")[0].appendChild(fileref);
+				}
+			}
+			app.loadFiles = function () {
+				if (this.files.length) { //files remain to load
+					this.files.sort(function (a,b) {return a.grp - b.grp;});
+					this.grp = this.files[this.files.length-1].grp;
+					while (this.files.length && (this.files[this.files.length-1].grp == this.grp)) {
+						f = this.files.pop();
+						document.getElementsByTagName("head")[0].appendChild(f.fileref);
+						this.grpCount++;
+					}
+				}
+			}
+			app.init = function () {
+				this.addFile(3, code + "css/layout.css", "css", "all");
+				this.addFile(3, code + "css/thumbs.css", "css", "all");
+				this.addFile(3, code + "css/player.css", "css", "all");
+				this.addFile(3, code + "css/iphone.css", "css", "only screen and (max-device-width: 480px)");
+				this.addFile(3, code + "css/ipad.css", "css", "only screen and (max-device-width: 1024px)");
+				this.addFile(3, code + "js/jquery-1.7.min.js", "js");
+				//this.addFile(3, code + "js/youtube.js", "js");
+				this.addFile(2, code + "js/jquery.jplayer.js", "js");
+				this.addFile(2, code + "js/jquery.thumbs.js", "js");
+				this.addFile(2, code + "js/jquery.effects.core.js", "js");
+				this.addFile(2, code + "js/jquery.scrollTo.min.js", "js");
+				this.addFile(2, code + "js/jquery.validate.min.js", "js");
+				this.addFile(1, code + "js/jquery.piki2.js", "js");
+				this.loadFiles();
+			}
+		}
+		function checkLoad() {
+			if (--app.grpCount==0) {
+				app.loadFiles();
+			}
+		}		
+
+			app.init();
+
+-->
+</script>
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  //Tracker for SWFAddress
+  var pageTracker = { _trackPageview: function (url) {_gaq.push (['_trackPageview', '/#' + url ]);}}; 
+
+</script>
+        <style>
+            body.flash { height:100%; overflow:hidden; background-color:#333; margin:0; }
+			html, #flashContent { height:100%}
+			a:focus, object:focus { outline: none; -moz-outline-style: none; }
+			preload { display:none; }
+    </style>
+    </head>
+    <body class="flash">
+        <script type="text/javascript">
+            // TODO: changing base url.
+            var baseUrl = '';
+
+            // TODO: changing background.
+            // color: color (string || false) --> hex value.
+            // image: url to image location (string  || false).
+           // var background = {color: false, image: baseUrl + 'medias/background/maibg.jpg'};
+            var background = {color: '#595452', image: 'images/bg_pattern_12.png', classes: 'tile'};
+
+            // TODO: changing default posters & images.
+            // default poster.
+            //var audioPoster =  baseUrl + 'medias/images/2005_batman_begins_wallpaper_010.jpg';
+            //var videoPoster =  '/templatehtml/medias/images/media_1.jpg';
+
+            // Append sections data here.
+            // name: section name (string).
+            // color: section color (string) --> hex value.
+            // media: media list (array) --> [{type: media type (int), data: media data (string)}].
+            var sectionData = [
+					{
+						name:   "About",
+						color:  '0x403b38',
+						uid: 478
+					},
+					{
+						name:   "Links",
+						color:  '0x6a635f',
+						media:  [
+ 							{type:7, data: "http:\/\/www.pikibox.com", uid: 2717},
+							{type:7, data: "\/pikibox.com\/thibaud\/https:\/\/twitter.com\/#!\/thibaud_be", uid: 2718}
+					],
+						uid: 2716
+					},
+					{
+						name:   "WORKS 3D",
+						color:  '0xd77075',
+						media:  [
+ 							{type:1, data: "medias\/CamF4002.jpg", uid: 2128},
+							{type:1, data: "medias\/LS2_lingliv_int_day2.jpg", uid: 2146},
+							{type:1, data: "medias\/Laura_Hut06B4.jpg", uid: 2149},
+							{type:1, data: "medias\/cefic_010.jpg", uid: 602},
+							{type:1, data: "medias\/cefic_01.jpg", uid: 612},
+							{type:2, data: "uploads\/FLY.mp4", uid: 2124}
+					],
+						uid: 585
+					},
+					{
+						name:   "WORKS Webdesign",
+						color:  '0x319fbd',
+						media:  [
+ 							{type:1, data: "medias\/ipad_pikibox.jpg", uid: 2426},
+							{type:1, data: "medias\/lexus-web03_1.jpg", uid: 2114},
+							{type:1, data: "medias\/ipad_YAOlogo.jpg", uid: 2472},
+							{type:1, data: "medias\/ipad-youki.jpg", uid: 2473},
+							{type:1, data: "medias\/ipad_generalui.jpg", uid: 2501},
+							{type:1, data: "medias\/ipad-isodis2.jpg", uid: 2499},
+							{type:1, data: "medias\/ipad_xnconvert1.jpg", uid: 2470}
+					],
+						uid: 623
+					},
+					{
+						name:   "WORKS Identity",
+						color:  '0x92c469',
+						media:  [
+ 							{type:1, data: "medias\/ipad-audio2_3.jpg", uid: 2465},
+							{type:1, data: "medias\/xnview6.jpg", uid: 2423},
+							{type:1, data: "medias\/ids2..jpg", uid: 2732},
+							{type:1, data: "medias\/xnview25.jpg", uid: 2676},
+							{type:1, data: "medias\/xnview23.jpg", uid: 2707},
+							{type:1, data: "medias\/xnconvert6.jpg", uid: 2508},
+							{type:1, data: "medias\/flashdevelop2.jpg", uid: 2469},
+							{type:1, data: "medias\/yao-logo3.jpg", uid: 2094},
+							{type:1, data: "medias\/echo-logo2.jpg", uid: 2096},
+							{type:1, data: "medias\/gravito-logo5.jpg", uid: 2107}
+					],
+						uid: 627
+					},
+					{
+						name:   "Contact",
+						color:  '0x6a635f',
+						uid: 2709
+					}
+            ];
+			if (typeof applyLayout != 'undefined') applyLayout();
+		</script>
+		<div id="flashContent">
+		<div id="altContent">
+        <div id="loading"></div>
+        <div id="main" class="preload">
+            <header>
+                <h1><img src="images/spacer.gif" alt=""></h1>
+            </header>
+            <section id="main-section">
+                <section>
+                    <h2>
+                        <a href="#" title="" class="clearfix">
+                            <span class="toprule">&nbsp;</span>
+                            <span class="imageholder"></span>
+                            <span class="title-wrap">
+                                <span class="title">
+                                    <span>About</span>
+                                    
+                                </span>
+                            </span>
+                        </a>
+                    </h2>
+                    <div class="content-wrapper">
+                        <div class="content textContent">
+                            <article>
+<TEXTFORMAT LEADING="2"><P ALIGN="LEFT"><FONT FACE="Verdana" SIZE="2" COLOR="#666666" LETTERSPACING="0" KERNING="0"><IMG SRC="uploads/thib01.png">       <FONT FACE="Georgia" SIZE="26" COLOR="#4B4946" KERNING="1"><B><I>Hello there,</I></B><FONT FACE="Verdana" SIZE="2" COLOR="#666666" KERNING="0">;</FONT></FONT></FONT></P></TEXTFORMAT><TEXTFORMAT LEADING="2"><P ALIGN="LEFT"><FONT FACE="Georgia" SIZE="25" COLOR="#999999" LETTERSPACING="0" KERNING="1"><B><I>I&apos;m Thibaud.</I></B></FONT></P></TEXTFORMAT><TEXTFORMAT LEADING="2"><P ALIGN="LEFT"><FONT FACE="Georgia" SIZE="10" COLOR="#666666" LETTERSPACING="0" KERNING="1"></FONT></P></TEXTFORMAT><TEXTFORMAT LEADING="2"><P ALIGN="LEFT"><FONT FACE="Georgia" SIZE="14" COLOR="#777777" LETTERSPACING="0" KERNING="1"><I>I&apos;ve been creating and developing things using computers for a little while now...</I></FONT></P></TEXTFORMAT><TEXTFORMAT LEADING="2"><P ALIGN="LEFT"><FONT FACE="Georgia" SIZE="10" COLOR="#777777" LETTERSPACING="0" KERNING="1"></FONT></P></TEXTFORMAT><TEXTFORMAT LEADING="2"><P ALIGN="LEFT"><FONT FACE="Georgia" SIZE="10" COLOR="#777777" LETTERSPACING="0" KERNING="1"></FONT></P></TEXTFORMAT><TEXTFORMAT LEADING="2"><P ALIGN="LEFT"><FONT FACE="Georgia" SIZE="14" COLOR="#777777" LETTERSPACING="0" KERNING="1"><I>This website is my portfolio.</I></FONT></P></TEXTFORMAT><TEXTFORMAT LEADING="2"><P ALIGN="LEFT"><FONT FACE="Georgia" SIZE="14" COLOR="#777777" LETTERSPACING="0" KERNING="1"><I>I guess you can call me a </I><B><I>creative developer</I></B><I>.</I></FONT></P></TEXTFORMAT><TEXTFORMAT LEADING="2"><P ALIGN="LEFT"><FONT FACE="Georgia" SIZE="10" COLOR="#777777" LETTERSPACING="0" KERNING="1"></FONT></P></TEXTFORMAT><TEXTFORMAT LEADING="2"><P ALIGN="LEFT"><FONT FACE="Georgia" SIZE="14" COLOR="#777777" LETTERSPACING="0" KERNING="1"><I>Over the past years I&apos;ve mastered the art of making portfolio websites and I&apos;ve put it all together in </I><FONT COLOR="#403B38"><A HREF="http://www.pikibox.com" TARGET="_blank"><B><I><U>Pikibox</U></I></B></A><FONT COLOR="#6A635F"><A HREF="http://www.pikibox.com" TARGET="_blank"><I>.</I></A><FONT COLOR="#777777"></FONT></FONT></FONT></FONT></P></TEXTFORMAT><TEXTFORMAT LEADING="2"><P ALIGN="LEFT"><FONT FACE="Georgia" SIZE="10" COLOR="#777777" LETTERSPACING="0" KERNING="1"></FONT></P></TEXTFORMAT><TEXTFORMAT LEADING="2"><P ALIGN="LEFT"><FONT FACE="Georgia" SIZE="14" COLOR="#777777" LETTERSPACING="0" KERNING="1"><I>If you ever need a portfolio style website built in a snap, you definitively should check it out !</I></FONT></P></TEXTFORMAT>
+                            </article>
+                        </div>
+                    </div>
+                </section>                <section>
+                    <h2>
+                        <a href="#" title="" class="clearfix">
+                            <span class="toprule">&nbsp;</span>
+                            <span class="imageholder"></span>
+                            <span class="title-wrap">
+                                <span class="title">
+                                    <span>Links</span>
+
+                                </span>
+                            </span>
+                        </a>
+                    </h2>
+                    <div class="content-wrapper">
+                        <div class="content galleryNav">
+                            <nav>
+                                <ul class="navigation clearfix">
+									<li><a href="http://www.pikibox.com" title="" class="links"><span class="mask">&nbsp;</span><img src="thumbs/thumb_pikibox2_2.jpg" alt="" class="thumb"></a></li>
+									<li><a href="https://twitter.com/#!/thibaud_be" title="" class="links"><span class="mask">&nbsp;</span><img src="thumbs/thumb_twitter2_2.jpg" alt="" class="thumb"></a></li>
+
+                                </ul>
+                            </nav>
+                        </div>
+                        <div class="content galleryContent">
+                            <div class="mediaNav clearfix">
+                                <nav>
+                                    <p class="navigation"><a href="#" title="" class="prev"><span>Previous</span></a><a href="#" title="" class="next"><span>Next</span></a></p>
+                                </nav>
+                                <div class="mediaTitleHolder">
+                                    <div class="mediaTitle">
+										<div><h3>This website is build with Pikibox</h3>
+</div>
+										<div><h3>Tweet tweet</h3>
+</div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mediaHolder"></div>
+                        </div>
+                    </div>
+                </section>
+                <section>
+                    <h2>
+                        <a href="#" title="" class="clearfix">
+                            <span class="toprule">&nbsp;</span>
+                            <span class="imageholder"></span>
+                            <span class="title-wrap">
+                                <span class="title">
+                                    <span>WORKS 3D</span>
+
+                                </span>
+                            </span>
+                        </a>
+                    </h2>
+                    <div class="content-wrapper">
+                        <div class="content galleryNav">
+                            <nav>
+                                <ul class="navigation clearfix">
+									<li><a href="#" title="" class="image"><span class="mask">&nbsp;</span><img src="thumbs/CamF4002.jpg" alt="" class="thumb"></a></li>
+									<li><a href="#" title="" class="image"><span class="mask">&nbsp;</span><img src="thumbs/LS2_lingliv_int_day2.jpg" alt="" class="thumb"></a></li>
+									<li><a href="#" title="" class="image"><span class="mask">&nbsp;</span><img src="thumbs/Laura_Hut06B4.jpg" alt="" class="thumb"></a></li>
+									<li><a href="#" title="" class="image"><span class="mask">&nbsp;</span><img src="thumbs/cefic_010.jpg" alt="" class="thumb"></a></li>
+									<li><a href="#" title="" class="image"><span class="mask">&nbsp;</span><img src="thumbs/cefic_01.jpg" alt="" class="thumb"></a></li>
+									<li><a href="#" title="" class="video"><span class="mask">&nbsp;</span><img src="thumbs/3D_fly_1.jpg" alt="" class="thumb"></a></li>
+
+                                </ul>
+                            </nav>
+                        </div>
+                        <div class="content galleryContent">
+                            <div class="mediaNav clearfix">
+                                <nav>
+                                    <p class="navigation"><a href="#" title="" class="prev"><span>Previous</span></a><a href="#" title="" class="next"><span>Next</span></a></p>
+                                </nav>
+                                <div class="mediaTitleHolder">
+                                    <div class="mediaTitle">
+										<div><h3>Previz - Toison d'Or</h3>
+<TEXTFORMAT LEADING="2"><P ALIGN="LEFT"><FONT FACE="Georgia" SIZE="14" COLOR="#666666" LETTERSPACING="0" KERNING="1">3D Lighting &amp; Rendering<FONT COLOR="#999999"> | <FONT COLOR="#D77075"><B>2011</B></FONT> | <FONT COLOR="#666666"><B><I>PROWINKO</I></B></FONT> <I>a still from a small 3D previsualisation animation (rough model).</I></FONT></FONT></P></TEXTFORMAT></div>
+										<div><h3>Laura's Star</h3>
+<TEXTFORMAT LEADING="2"><P ALIGN="LEFT"><FONT FACE="Georgia" SIZE="14" COLOR="#666666" LETTERSPACING="0" KERNING="1">3D <FONT COLOR="#999999"> | <FONT COLOR="#D77075"><B>2007</B></FONT> | <FONT COLOR="#666666"><B><I>Laura&apos;s star in China </I></B><FONT COLOR="#999999"><I>- Pre-production in Which I provided technical guidelines for modelisation, texturing and compositing and delivered several reference &quot;final&quot; shots from scratch this is one of theses (procedural shading in action).</I></FONT></FONT></FONT></FONT></P></TEXTFORMAT></div>
+										<div><h3>Laura's Star hutong house</h3>
+<TEXTFORMAT LEADING="2"><P ALIGN="LEFT"><FONT FACE="Georgia" SIZE="14" COLOR="#666666" LETTERSPACING="0" KERNING="1">3D <FONT COLOR="#999999"> | <FONT COLOR="#D77075"><B>2007</B></FONT> | <I>one of the many &quot;hutong&quot; style house modeled and  shaded for </I><FONT COLOR="#666666"><B><I>Laura&apos;s star in China </I></B><FONT COLOR="#999999"><I>- Pre-production.</I></FONT></FONT></FONT></FONT></P></TEXTFORMAT></div>
+										<div><h3>Cefic 2008</h3>
+<TEXTFORMAT LEADING="2"><P ALIGN="LEFT"><FONT FACE="Georgia" SIZE="14" COLOR="#666666" LETTERSPACING="0" KERNING="1">3D <FONT COLOR="#999999"> | <FONT COLOR="#D77075"><B>2008</B></FONT> | <FONT COLOR="#666666"><B><I> </I></B><FONT COLOR="#999999"><I>One of a serie of 3D visuals created for </I></FONT><B><I>CEFIC</I></B><FONT COLOR="#999999"><I> Annual review &apos;08.</I></FONT></FONT></FONT></FONT></P></TEXTFORMAT></div>
+										<div><h3>Cefic 2007</h3>
+<TEXTFORMAT LEADING="2"><P ALIGN="LEFT"><FONT FACE="Georgia" SIZE="14" COLOR="#666666" LETTERSPACING="0" KERNING="1">3D <FONT COLOR="#999999"> | <FONT COLOR="#D77075"><B>2007</B></FONT> | <FONT COLOR="#666666"><B><I> </I></B><FONT COLOR="#999999"><I>One of a serie of 3D visuals created for </I></FONT><B><I>CEFIC</I></B><FONT COLOR="#999999"><I> Annual review &apos;07.</I></FONT></FONT></FONT></FONT></P></TEXTFORMAT></div>
+										<div><h3>Flying Ribbon clip</h3>
+<TEXTFORMAT LEADING="2"><P ALIGN="LEFT"><FONT FACE="Georgia" SIZE="14" COLOR="#666666" LETTERSPACING="0" KERNING="1">3D <FONT COLOR="#999999">| <FONT COLOR="#D77075"><B>2005</B></FONT> | A small animated music clip made for  <FONT COLOR="#666666"><B><I>flying Pop</I></B></FONT></FONT></FONT></P></TEXTFORMAT></div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mediaHolder"></div>
+                        </div>
+                    </div>
+                </section>
+                <section>
+                    <h2>
+                        <a href="#" title="" class="clearfix">
+                            <span class="toprule">&nbsp;</span>
+                            <span class="imageholder"></span>
+                            <span class="title-wrap">
+                                <span class="title">
+                                    <span>WORKS Webdesign</span>
+
+                                </span>
+                            </span>
+                        </a>
+                    </h2>
+                    <div class="content-wrapper">
+                        <div class="content galleryNav">
+                            <nav>
+                                <ul class="navigation clearfix">
+									<li><a href="#" title="" class="image"><span class="mask">&nbsp;</span><img src="thumbs/ipad_pikibox.jpg" alt="" class="thumb"></a></li>
+									<li><a href="#" title="" class="image"><span class="mask">&nbsp;</span><img src="thumbs/lexus-web03_1.jpg" alt="" class="thumb"></a></li>
+									<li><a href="#" title="" class="image"><span class="mask">&nbsp;</span><img src="thumbs/ipad_YAOlogo.jpg" alt="" class="thumb"></a></li>
+									<li><a href="#" title="" class="image"><span class="mask">&nbsp;</span><img src="thumbs/ipad-youki.jpg" alt="" class="thumb"></a></li>
+									<li><a href="#" title="" class="image"><span class="mask">&nbsp;</span><img src="thumbs/ipad_generalui.jpg" alt="" class="thumb"></a></li>
+									<li><a href="#" title="" class="image"><span class="mask">&nbsp;</span><img src="thumbs/ipad-isodis2.jpg" alt="" class="thumb"></a></li>
+									<li><a href="#" title="" class="image"><span class="mask">&nbsp;</span><img src="thumbs/ipad_xnconvert1.jpg" alt="" class="thumb"></a></li>
+
+                                </ul>
+                            </nav>
+                        </div>
+                        <div class="content galleryContent">
+                            <div class="mediaNav clearfix">
+                                <nav>
+                                    <p class="navigation"><a href="#" title="" class="prev"><span>Previous</span></a><a href="#" title="" class="next"><span>Next</span></a></p>
+                                </nav>
+                                <div class="mediaTitleHolder">
+                                    <div class="mediaTitle">
+										<div><h3>Pikibox</h3>
+<TEXTFORMAT LEADING="2"><P ALIGN="LEFT"><FONT FACE="Georgia" SIZE="14" COLOR="#666666" LETTERSPACING="0" KERNING="1">Website Design<FONT COLOR="#999999"> | <FONT COLOR="#319FBD"><B>2011</B></FONT> | <FONT COLOR="#319FBD"><A HREF="http://www.pikibox.com" TARGET="_blank"><I><U>Pikibox</U></I></A><FONT COLOR="#999999"><I> website design &amp; developement</I></FONT></FONT></FONT></FONT></P></TEXTFORMAT></div>
+										<div><h3>Lexus</h3>
+<TEXTFORMAT LEADING="2"><P ALIGN="LEFT"><FONT FACE="Georgia" SIZE="14" COLOR="#666666" LETTERSPACING="0" KERNING="1">Website Design<FONT COLOR="#999999"> | <FONT COLOR="#319FBD"><B>2007</B></FONT> | <FONT COLOR="#666666"><B><I>Lexus</I></B></FONT> <I>website design</I></FONT></FONT></P></TEXTFORMAT></div>
+										<div><h3>Yao</h3>
+<TEXTFORMAT LEADING="2"><P ALIGN="LEFT"><FONT FACE="Georgia" SIZE="14" COLOR="#666666" LETTERSPACING="0" KERNING="1">Website Design<FONT COLOR="#999999"> | <FONT COLOR="#319FBD"><B>2006</B></FONT> | <FONT COLOR="#666666"><B><I>YAO</I></B><FONT COLOR="#999999"><I> website design</I></FONT></FONT></FONT></FONT></P></TEXTFORMAT></div>
+										<div><h3>Youki</h3>
+<TEXTFORMAT LEADING="2"><P ALIGN="LEFT"><FONT FACE="Georgia" SIZE="14" COLOR="#666666" LETTERSPACING="0" KERNING="1">Website Design<FONT COLOR="#999999"> | <FONT COLOR="#319FBD"><B>2005</B></FONT> | <FONT COLOR="#666666"><B><I>Youki</I></B><FONT COLOR="#999999"><I> website design &amp; developement</I></FONT></FONT></FONT></FONT></P></TEXTFORMAT></div>
+										<div><h3>Generali</h3>
+</div>
+										<div><h3>Isodis</h3>
+<TEXTFORMAT LEADING="2"><P ALIGN="LEFT"><FONT FACE="Georgia" SIZE="14" COLOR="#666666" LETTERSPACING="0" KERNING="1">Website Design<FONT COLOR="#999999"> | <FONT COLOR="#319FBD"><B>2006</B></FONT> | <FONT COLOR="#666666"><B><I>Isodis</I></B><FONT COLOR="#999999"><I> website design</I></FONT></FONT></FONT></FONT></P></TEXTFORMAT></div>
+										<div><h3>XnView</h3>
+<TEXTFORMAT LEADING="2"><P ALIGN="LEFT"><FONT FACE="Georgia" SIZE="14" COLOR="#666666" LETTERSPACING="0" KERNING="1">Website Design<FONT COLOR="#999999"> | <FONT COLOR="#319FBD"><B>2011</B></FONT> | <FONT COLOR="#666666"><B><I>XnView</I></B><FONT COLOR="#999999"><I> website design</I></FONT></FONT></FONT></FONT></P></TEXTFORMAT></div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mediaHolder"></div>
+                        </div>
+                    </div>
+                </section>
+                <section>
+                    <h2>
+                        <a href="#" title="" class="clearfix">
+                            <span class="toprule">&nbsp;</span>
+                            <span class="imageholder"></span>
+                            <span class="title-wrap">
+                                <span class="title">
+                                    <span>WORKS Identity</span>
+
+                                </span>
+                            </span>
+                        </a>
+                    </h2>
+                    <div class="content-wrapper">
+                        <div class="content galleryNav">
+                            <nav>
+                                <ul class="navigation clearfix">
+									<li><a href="#" title="" class="image"><span class="mask">&nbsp;</span><img src="thumbs/ipad-audio2_3.jpg" alt="" class="thumb"></a></li>
+									<li><a href="#" title="" class="image"><span class="mask">&nbsp;</span><img src="thumbs/xnview6.jpg" alt="" class="thumb"></a></li>
+									<li><a href="#" title="" class="image"><span class="mask">&nbsp;</span><img src="thumbs/ids2.jpg" alt="" class="thumb"></a></li>
+									<li><a href="#" title="" class="image"><span class="mask">&nbsp;</span><img src="thumbs/xnview25.jpg" alt="" class="thumb"></a></li>
+									<li><a href="#" title="" class="image"><span class="mask">&nbsp;</span><img src="thumbs/xnview23.jpg" alt="" class="thumb"></a></li>
+									<li><a href="#" title="" class="image"><span class="mask">&nbsp;</span><img src="thumbs/xnconvert6.jpg" alt="" class="thumb"></a></li>
+									<li><a href="#" title="" class="image"><span class="mask">&nbsp;</span><img src="thumbs/flashdevelop2.jpg" alt="" class="thumb"></a></li>
+									<li><a href="#" title="" class="image"><span class="mask">&nbsp;</span><img src="thumbs/yao-logo3_1.jpg" alt="" class="thumb"></a></li>
+									<li><a href="#" title="" class="image"><span class="mask">&nbsp;</span><img src="thumbs/echo-logo2_1.jpg" alt="" class="thumb"></a></li>
+									<li><a href="#" title="" class="image"><span class="mask">&nbsp;</span><img src="thumbs/gravito-logo5.jpg" alt="" class="thumb"></a></li>
+
+                                </ul>
+                            </nav>
+                        </div>
+                        <div class="content galleryContent">
+                            <div class="mediaNav clearfix">
+                                <nav>
+                                    <p class="navigation"><a href="#" title="" class="prev"><span>Previous</span></a><a href="#" title="" class="next"><span>Next</span></a></p>
+                                </nav>
+                                <div class="mediaTitleHolder">
+                                    <div class="mediaTitle">
+										<div><h3>AudioSphere - Logo</h3>
+<TEXTFORMAT LEADING="2"><P ALIGN="LEFT"><FONT FACE="Georgia" SIZE="14" COLOR="#666666" LETTERSPACING="0" KERNING="1">Identity<FONT COLOR="#999999"> | <FONT COLOR="#92C469"><B>2011</B></FONT> | <FONT COLOR="#666666"><B><I>Poikosoft AudioShpere </I></B><FONT COLOR="#999999"><I> Icons/Logo Design</I></FONT></FONT></FONT></FONT></P></TEXTFORMAT></div>
+										<div><h3>XnView Mobile - iOS Icons</h3>
+<TEXTFORMAT LEADING="2"><P ALIGN="LEFT"><FONT FACE="Georgia" SIZE="14" COLOR="#666666" LETTERSPACING="0" KERNING="1">Identity<FONT COLOR="#999999"> | <FONT COLOR="#92C469"><B>2011</B></FONT> | <FONT COLOR="#666666"><B><I>XnView Photo Fx</I></B><FONT COLOR="#999999"><I>  iOs icons design</I></FONT></FONT></FONT></FONT></P></TEXTFORMAT></div>
+										<div><h3>ids2.</h3>
+<TEXTFORMAT LEADING="2"><P ALIGN="LEFT"><FONT FACE="Georgia" SIZE="14" COLOR="#666666" LETTERSPACING="0" KERNING="1">Identity<FONT COLOR="#999999"> | <FONT COLOR="#92C469"><B>2011</B></FONT> | <FONT COLOR="#666666"><B><I>Interactive Digital Signage</I></B><FONT COLOR="#999999"><I> Logo Design</I></FONT></FONT></FONT></FONT></P></TEXTFORMAT></div>
+										<div><h3>XnView - Logo</h3>
+<TEXTFORMAT LEADING="2"><P ALIGN="LEFT"><FONT FACE="Georgia" SIZE="14" COLOR="#666666" LETTERSPACING="0" KERNING="1">Identity<FONT COLOR="#999999"> | <FONT COLOR="#92C469"><B>2011</B></FONT> | <FONT COLOR="#666666"><B><I>XnView </I></B><FONT COLOR="#999999"><I>Icons/Logo re-design</I></FONT></FONT></FONT></FONT></P></TEXTFORMAT></div>
+										<div><h3>XnView - Logo</h3>
+<TEXTFORMAT LEADING="2"><P ALIGN="LEFT"><FONT FACE="Georgia" SIZE="14" COLOR="#666666" LETTERSPACING="0" KERNING="1">Identity<FONT COLOR="#999999"> | <FONT COLOR="#92C469"><B>2011</B></FONT> | <FONT COLOR="#666666"><B><I>XnView</I></B><FONT COLOR="#999999"><I> Icons/Logo re-design</I></FONT></FONT></FONT></FONT></P></TEXTFORMAT></div>
+										<div><h3>XnConvert - Logo</h3>
+<TEXTFORMAT LEADING="2"><P ALIGN="LEFT"><FONT FACE="Georgia" SIZE="14" COLOR="#666666" LETTERSPACING="0" KERNING="1">Identity<FONT COLOR="#999999"> | <FONT COLOR="#92C469"><B>2011</B></FONT> | <FONT COLOR="#666666"><B><I>XnConvert </I></B><FONT COLOR="#999999"><I> Icons/Logo Design</I></FONT></FONT></FONT></FONT></P></TEXTFORMAT></div>
+										<div><h3>FlashDevelop - Logo</h3>
+<TEXTFORMAT LEADING="2"><P ALIGN="LEFT"><FONT FACE="Georgia" SIZE="14" COLOR="#666666" LETTERSPACING="0" KERNING="1">Identity<FONT COLOR="#999999"> | <FONT COLOR="#92C469"><B>2011</B></FONT> | <FONT COLOR="#666666"><B><I>FlashDevelop </I></B><FONT COLOR="#999999"><I> Icons/Logo re-design</I></FONT></FONT></FONT></FONT></P></TEXTFORMAT></div>
+										<div><h3>YAO - Logo</h3>
+<TEXTFORMAT LEADING="2"><P ALIGN="LEFT"><FONT FACE="Georgia" SIZE="14" COLOR="#666666" LETTERSPACING="0" KERNING="1">Identity<FONT COLOR="#999999"> | <FONT COLOR="#92C469"><B>2007</B></FONT> | <FONT COLOR="#666666"><B><I>YAO</I></B><FONT COLOR="#999999"><I> Logo Design</I></FONT></FONT></FONT></FONT></P></TEXTFORMAT></div>
+										<div><h3>Echo - Logo</h3>
+<TEXTFORMAT LEADING="2"><P ALIGN="LEFT"><FONT FACE="Georgia" SIZE="14" COLOR="#666666" LETTERSPACING="0" KERNING="1">Identity<FONT COLOR="#999999"> | <FONT COLOR="#92C469"><B>2007</B></FONT> | <FONT COLOR="#666666"><B><I>ECHO</I></B><FONT COLOR="#999999"><I> Logo Design</I></FONT></FONT></FONT></FONT></P></TEXTFORMAT></div>
+										<div><h3>Gravito - Logo</h3>
+<TEXTFORMAT LEADING="2"><P ALIGN="LEFT"><FONT FACE="Georgia" SIZE="14" COLOR="#666666" LETTERSPACING="0" KERNING="1">Identity<FONT COLOR="#999999"> | <FONT COLOR="#92C469"><B>2011</B></FONT> | <FONT COLOR="#666666"><B><I>Gravito</I></B><FONT COLOR="#999999"><I> Logo Design</I></FONT></FONT></FONT></FONT></P></TEXTFORMAT></div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mediaHolder"></div>
+                        </div>
+                    </div>
+                </section>
+                <section>
+                    <h2>
+                        <a href="#" title="" class="clearfix">
+                            <span class="toprule">&nbsp;</span>
+                            <span class="imageholder"></span>
+                            <span class="title-wrap">
+                                <span class="title">
+                                    <span>Contact</span>
+<TEXTFORMAT LEADING="2"><P ALIGN="LEFT"><FONT FACE="Verdana" SIZE="12" COLOR="#666666" LETTERSPACING="0" KERNING="0">Let&apos;s get in touch!</FONT></P></TEXTFORMAT>
+                                </span>
+                            </span>
+                        </a>
+                    </h2>
+                    <div class="content-wrapper">
+                        <div class="content formContent">
+                            <div class="contact clearfix">
+                                <div class="address">
+<TEXTFORMAT LEADING="2"><P ALIGN="LEFT"><FONT FACE="Georgia" SIZE="16" COLOR="#666666" LETTERSPACING="0" KERNING="0"><B>Thibaud Van Vreckem</B></FONT></P></TEXTFORMAT><TEXTFORMAT LEADING="2"><P ALIGN="JUSTIFY"><FONT FACE="Georgia" SIZE="13" COLOR="#999999" LETTERSPACING="0" KERNING="0">phone:<FONT COLOR="#666666"> +32 498 218 366<FONT SIZE="8"></FONT></FONT></FONT></P></TEXTFORMAT><TEXTFORMAT LEADING="2"><P ALIGN="JUSTIFY"><FONT FACE="Georgia" SIZE="8" COLOR="#999999" LETTERSPACING="0" KERNING="0"></FONT></P></TEXTFORMAT><TEXTFORMAT LEADING="2"><P ALIGN="JUSTIFY"><FONT FACE="Georgia" SIZE="13" COLOR="#999999" LETTERSPACING="0" KERNING="0">Use the form below if you wish to send me a message :</FONT></P></TEXTFORMAT>
+								</div>
+                                <div class="response">
+                                <form action="">
+                                    <fieldset>
+                                        <legend>Contact</legend>
+                                        <p><label for="contact-name">Name</label> <input type="text" name="contact_name" id="contact_name" value=""></p>
+                                        <p><label for="contact-mail">e-mail</label> <input type="text" name="contact_mail" id="contact_mail" value=""></p>
+                                        <p><label for="contact-message">Message</label> <textarea name="contact_message" id="contact_message" cols="10" rows="9"></textarea></p>
+                                        <p><a href="#" title="Submit" class="submit-btn">Send</a></p>
+                                        <input type="hidden" id="contact_to" name="contact_to" value="thibaud@apricus.be" />
+										<input type="hidden" id="lang" name="lang" value="en_US" />
+                                    </fieldset>
+                                </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+			</section>
+		</div>
+        </div>
+		</div>
+    </body>
+</html>
