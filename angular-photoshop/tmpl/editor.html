@@ -1,0 +1,23 @@
+<div id="editor">
+<div class="item" mo-drag mo-reset-size ng-repeat="item in stages" ng-style="item.containerStyle" ng-class="{active: item.active}" ng-click="activate(item.id)">
+<div class="panel">
+  <div class="panel-heading" mo-drag-handle ng-mousedown="mark(item.id)" ng-mouseup="unmark()" ng-class="{moving: currentMoving == item.id}">{{item.title}}</div>
+  <div class="panel-body">
+    <div class="stage">
+        <iframe src="tmpl/canvas.html" frameborder="0" width="{{item.canvas.width}}" height="{{item.canvas.height}}"></iframe>
+        <canvas class="top" width="{{item.ruler.width}}" height="15" mo-canvas-render="top"></canvas>
+        <canvas class="left" width="15" height="{{item.ruler.height}}" mo-canvas-render="left"></canvas>
+    </div>
+    <a class="border top" mo-reset-size-handle="top"></a>
+    <a class="border right" mo-reset-size-handle="right"></a>
+    <a class="border bottom" mo-reset-size-handle="bottom"></a>
+    <a class="border left" mo-reset-size-handle="left"></a>
+    <a class="border left-top" mo-reset-size-handle="left-top"></a>
+    <a class="border left-bottom" mo-reset-size-handle="left-bottom"></a>
+    <a class="border right-top" mo-reset-size-handle="right-top"></a>
+    <a class="border right-bottom" mo-reset-size-handle="right-bottom"></a>
+  </div>
+</div>
+</div>
+
+</div>

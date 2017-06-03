@@ -1,0 +1,180 @@
+#menu{
+    position: absolute;
+    top: 0;
+    width: 100%;
+    border-bottom: 1px solid #a0a0a0;
+    background: linear-gradient(to bottom, #fefeff 0%,#d4dbed 40%);
+    z-index: 1000;
+}
+#menu .menu{
+    position: absolute;
+    padding: 2px;
+    border: 1px solid #a0a0a0;
+    background: #ededed;
+    white-space:nowrap;
+    display: none;
+}
+#menu .menu:before{
+    content: "\e113";
+    display: none;
+    top: 0;
+    width: 100%;
+    padding-left: 20px;
+    padding-right: 15px;
+    font-family: 'Glyphicons Halflings';
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+#menu .menu:after{
+    content: "\e114";
+    display: none;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+    padding-left: 20px;
+    padding-right: 15px;
+    font-family: 'Glyphicons Halflings';
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+#menu .menu.wheel:before,
+#menu .menu.wheel:after{
+    display: block;
+}
+#menu .item .menu .list-wrap{
+    /*
+    overflow: hidden;
+    */
+}
+#menu .item .menu .list{
+    transition: transform .3s ease-out;
+}
+
+#menu .submenu-level-1{
+    top: 18px;
+    left: -2px;
+}
+#menu .submenu-level-2{
+    right: 0;
+    top: -5px;
+    z-index: 2;
+    transform: translate(100%, 0);
+}
+#menu .item-level-2:hover .submenu-level-2{
+    display: block;
+}
+#menu .item-level-2[disabled]:hover .submenu-level-2{
+    display: none;
+}
+#menu .item-level-1{
+    float: left;
+    margin: 1px 5px;
+}
+#menu .item-level-1>a{
+    display: block;
+    padding: 0 2px;
+    border-radius: 3px;
+    font-size: 12px;
+}
+#menu .item-level-1.show>a,
+#menu .item-level-1:hover>a{
+    box-shadow: 0 0 0 1px #9499a6;
+}
+
+#menu .item-level-1.show>.menu{
+    display: block;
+    min-width: 140px;
+}
+#menu .item-level-1.m_file>.menu{
+    width: 350px;
+}
+#menu .item-level-1.m_edit>.menu{
+    width: 255px;
+}
+#menu .item-level-1.m_image>.menu{
+    width: 215px;
+}
+#menu .item-level-1.m_layer>.menu{
+    width: 240px;
+}
+#menu .item-level-1.m_select>.menu{
+    width: 215px;
+}
+#menu .item-level-1.m_filter>.menu{
+    width: 260px;
+}
+#menu .item-level-1.m_view>.menu{
+    width: 215px;
+}
+#menu .item-level-1.m_window>.menu{
+    width: 140px;
+}
+#menu .item-level-1.m_help>.menu{
+    width: 180px;
+}
+
+#menu .item-level-2.m_transform>.menu{
+    width: 190px;
+}
+#menu .item-level-2.m_preferences>.menu{
+    width: 180px;
+}
+#menu .item-level-2.m_adjustment>.menu{
+    width: 250px;
+}
+
+
+#menu .m_openRecen:after{
+    content: "";
+    margin-top: 2px;
+    margin-bottom: 4px;
+    border-top: 1px solid #a0a0a0;
+} 
+
+#menu .item{
+    position: relative;
+    cursor: default;
+}
+#menu .menu .item{
+    padding: 2px 15px 2px 20px;
+    font-size: 12px;
+}
+#menu .menu .item[disabled]>a,
+#menu .menu .item[disabled]>.shortcut-key,
+#menu .menu .item[disabled]>.more{
+    color: #ccc!important;
+}
+#menu .menu .item:hover{
+    background: #3399ff;
+}
+#menu .menu .item:hover>a,
+#menu .menu .item:hover>.shortcut-key,
+#menu .menu .item:hover>.more{
+    color: #fff;
+}
+#menu .menu .item>.shortcut-key{
+    float: right;
+}
+#menu .menu .item .more{
+    float: right;
+    margin-right: -10px;
+    transform: scale(0.6);
+}
+#menu .menu .item.selected:before{
+    position: absolute;
+    content: "\e013";
+    left: 2px;
+    font-family: 'Glyphicons Halflings';
+    transform: scale(0.75);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+
+#menu .menu{
+    counter-reset: sectioncounter;
+}
+#menu .menu>.item.sort>a:before{
+    content: counter(sectioncounter) " ";
+    counter-increment: sectioncounter;
+}

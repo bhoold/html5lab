@@ -1,0 +1,49 @@
+<div id="panel">
+    <div class="panel panel-ps group">
+      <div class="panel-heading" title="折叠为图标">
+        <i class="glyphicon glyphicon-forward"></i>
+      </div>
+      <div class="panel-body">
+        <div class="tab">
+            <div class="tab-head">
+                <span>属性</span>
+                <span>样式</span>
+            </div>
+            <div class="tab-body">
+                <p><span>类型:</span><span>{{widgetInfo.name}}</span></p>
+
+                <p ng-repeat="attr in widgetInfo.attrs"><span>{{attr.name}}:</span><span>{{attr.value}}</span></p>
+
+                <p><span>position:</span><span>{{widgetInfo.style.position}}</span></p>
+                <p><span>display:</span><span>{{widgetInfo.style.display}}</span></p>
+                <p><span>float:</span><span>{{widgetInfo.style.float}}</span></p>
+
+                <p><span>margin:</span><span>{{widgetInfo.style.margin}}</span></p>
+                <p><span>padding:</span><span>{{widgetInfo.style.padding}}</span></p>
+                <p><span>width:</span><span>{{widgetInfo.style.width}}</span></p>
+                <p><span>height:</span><span>{{widgetInfo.style.height}}</span></p>
+
+                <p><span>border:</span><span>{{widgetInfo.style.border}}</span></p>
+                <p><span>borderRadius:</span><span>{{widgetInfo.style.borderRadius}}</span></p>
+                <p><span>outline:</span><span>{{widgetInfo.style.outline}}</span></p>
+                <p><span>boxShadow:</span><span>{{widgetInfo.style.boxShadow}}</span></p>
+                <p><span>boxSizing:</span><span>{{widgetInfo.style.boxSizing}}</span></p>
+
+                <p><span>font:</span><span>{{widgetInfo.style.font}}</span></p>
+                <p><span>color:</span><span>{{widgetInfo.style.color}}</span></p>
+                <p><span>background:</span><span>{{widgetInfo.style.background}}</span></p>
+
+                <p><span>cursor:</span><span>{{widgetInfo.style.cursor}}</span></p>
+                <p><span>opacity:</span><span>{{widgetInfo.style.opacity}}</span></p>
+                <p><span>zoom:</span><span>{{widgetInfo.style.zoom}}</span></p>
+                <p><span>zIndex:</span><span>{{widgetInfo.style.zIndex}}</span></p>
+
+                <p><span>whiteSpace:</span><span>{{widgetInfo.style.whiteSpace}}</span></p>
+                <p><span>overflow:</span><span>{{widgetInfo.style.overflow}}</span></p>
+                <p><span>direction:</span><span>{{widgetInfo.style.direction}}</span></p>
+
+            </div>
+        </div>
+      </div>
+    </div>
+</div>

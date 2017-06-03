@@ -1,0 +1,48 @@
+#toolKit{
+    position: absolute;
+    width: 120px;
+    z-index: 999;
+}
+#toolKit .panel-body{
+    padding: 5px;
+    display: -webkit-flex;
+    flex-wrap: wrap;
+}
+#toolKit .panel-heading .glyphicon{
+    transform: scale(0.6) rotateZ(180deg);
+}
+#toolKit a{
+    display: block;
+    padding: 4px;
+    width: 50%;
+    border: 1px solid rgba(165,165,165,0);
+    border-radius: 3px;
+    text-align: center;
+}
+#toolKit a:hover{
+    border-color: rgba(165,165,165,.5);
+    /*
+    border-radius: 3px;
+    box-shadow: 0 0 0 1px rgba(165,165,165,.5);
+    color: rgba(0,0,255,.5);
+    */
+}
+#toolKit a i{
+    vertical-align: middle;
+}
+#toolKit span{
+    display: block;
+    font-size: 12px;
+}
+#toolKit.simple{
+    width: 68px;
+}
+#toolKit.simple .panel-heading .glyphicon{
+    transform: scale(0.6);
+}
+#toolKit.simple a{
+    line-height: 0;
+}
+#toolKit.simple span{
+    display: none;
+}

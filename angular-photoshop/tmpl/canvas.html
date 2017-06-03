@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <script type="text/javascript" src="/web-js-module/jquery-3.1.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="/web-css-module/bootstrap-3.3.7/dist/css/bootstrap.css" />
+    <script src="../drag.js"></script>
+    <style>
+html,body{
+    height: 100%;
+    overflow: hidden;
+    user-select:none;
+    background: url('../images_/canvas-bg.jpg');
+    background: #fff; 
+}
+select{
+    min-width: 5em;
+}
+    </style>
+<script>
+
+var onMessage = function(e){
+    if(e.source != window.parent || typeof e.data != 'object') return;
+    if(e.data.pos.x == dropPos.screenX && e.data.pos.y == dropPos.screenY){
+        x = dropPos.pageX;
+        y = dropPos.pageY;
+    }else{
+        return false;
+    }
+    switch(e.data.cmd){
+        case 'addWidget':
+            new Widget(e.data.content, x, y);
+        break;
+        case 'changeOperateMode':
+        
+        break;
+    }
+
+};
+
+window.addEventListener('message', onMessage, false);
+
+
+
+
+
+function Widget(type, x, y){
+    this[type] && this[type](x, y);
+}
+Widget.prototype = {
+    button: function(x, y){
+        var $elem = $('<button class="widget" style="top:'+y+'px;left:'+x+'px;">按钮</button>').appendTo($('body'));
+        new Drag().init({elem:$elem[0]});
+    },
+    span: function(x, y){
+        var $elem = $('<span class="widget" style="top:'+y+'px;left:'+x+'px;">文本</span>').appendTo($('body'));
+        new Drag().init({elem:$elem[0]});
+    },
+    input: function(x, y){
+        var $elem = $('<input class="widget" style="top:'+y+'px;left:'+x+'px;" value="输入框" />').appendTo($('body'));
+        new Drag().init({elem:$elem[0]});
+    },
+    select: function(x, y){
+        var $elem = $('<select class="widget" style="top:'+y+'px;left:'+x+'px;"><option>选择框</option></select>').appendTo($('body'));
+        new Drag().init({elem:$elem[0]});
+    },
+    ul: function(x, y){
+        var $elem = $('<ul class="widget" style="top:'+y+'px;left:'+x+'px;"><li>列表</li></ul>').appendTo($('body'));
+        new Drag().init({elem:$elem[0]});
+    },
+    table: function(x, y){
+        var $elem = $('<table class="widget" style="top:'+y+'px;left:'+x+'px;"><tr><td>表格</td></tr></table>').appendTo($('body'));
+        new Drag().init({elem:$elem[0]});
+    },
+    h1: function(x, y){
+        var $elem = $('<h1 class="widget" style="top:'+y+'px;left:'+x+'px;">标题</h1>').appendTo($('body'));
+        new Drag().init({elem:$elem[0]});
+    },
+    a: function(x, y){
+        var $elem = $('<a class="widget" style="top:'+y+'px;left:'+x+'px;">链接</a>').appendTo($('body'));
+        new Drag().init({elem:$elem[0]});
+    },
+    img: function(x, y){
+        var $elem = $('<img class="widget" style="top:'+y+'px;left:'+x+'px;" alt="图片" />').appendTo($('body'));
+        new Drag().init({elem:$elem[0]});
+    },
+    div: function(x, y){
+        var $elem = $('<div class="widget" style="top:'+y+'px;left:'+x+'px;">自定义</div>').appendTo($('body'));
+        new Drag().init({elem:$elem[0]});
+    }
+}
+widget = new Widget;
+dropPos = Object.create(null);
+
+
+
+
+$(document)
+.on('mouseover', '.widget', function(){
+
+})
+.on('click', '.widget', function(){
+    var style = getComputedStyle(this),
+        newStyle = {},
+        attrs = this.attributes,
+        newAttrs = [];
+
+    for(var i = 0; i < attrs.length; i++){
+        newAttrs.push({name: attrs[i].name, value: attrs[i].value});
+    }
+    /*
+    for(var i in style){
+        if(isNaN(Number(i))){
+            newStyle[i] = style[i];
+        }
+    }*/
+
+    parent.postMessage({
+        cmd: 'updateWidgetInfo', 
+        content: {
+            name: this.nodeName.toLowerCase(),
+            attrs: newAttrs,
+            style: JSON.stringify(style)
+        }
+    },'/');
+})
+
+
+
+
+
+
+
+
+
+
+
+
+function drop(e){
+    dropPos.screenX = e.screenX;
+    dropPos.screenY = e.screenY;
+    dropPos.pageX = e.pageX;
+    dropPos.pageY = e.pageY;
+}
+
+function dragEnter(event){
+    if(event.target == document.body){
+        parent.postMessage({
+            cmd:'dragEventChange', 
+            content:'enter'
+        },'/');
+    }else{
+        
+    }
+}
+function dragLeave(event){
+    if(event.target == document.body){
+        parent.postMessage({
+            cmd:'dragEventChange', 
+            content:'leave'
+        },'/');
+    }else{
+
+    }
+}
+function dragOver(event){event.preventDefault();
+    //console.log(event)
+}
+
+</script>
+<style>
+.widget{
+    position: absolute;
+}
+</style>
+</head>
+<body ondragenter="dragEnter(event)" ondragover="dragOver(event)" ondragleave="dragLeave(event)" ondrop="drop(event)" oncontextmenu="return false;">
+</body>
+</html>

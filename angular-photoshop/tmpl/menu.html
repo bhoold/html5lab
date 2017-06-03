@@ -1,0 +1,26 @@
+<div id="menu">
+    <div ng-repeat="(key, value) in menu" class="{{key}} item item-level-1" ng-class="{show:key == itemClicked}" ng-click="itemClick($event, key)" ng-mouseenter="itemEnter(key)">
+        <a>{{value.label}}</a>
+        <div class="menu submenu-level-1">
+            <div class="list-wrap">
+            <div class="list">
+                <div ng-repeat-start="(k, v) in value.menu" ng-disabled="v.isDisable" class="{{k}} item item-level-2" ng-class="{selected: v.selected}" ng-click="itemClick($event, key, k)">
+                    <a>{{v.label}}</a>
+                    <span ng-hide="!v.shortcut" class="shortcut-key">{{v.shortcut}}</span>
+                    <i ng-hide="!v.menu" class="more glyphicon glyphicon-play"></i>
+                    <div ng-hide="!v.menu" class="menu submenu-level-2">
+                        <div class="list-wrap">
+                            <div class="list">
+                                <div ng-repeat-start="(k2, v2) in v.menu" ng-disabled="v2.isDisable" class="{{k2}} item item-level-3" ng-click="itemClick($event, key, k, k2)"><a>{{v2.label}}</a></div>
+                                <hr ng-show="v2.hr" ng-repeat-end />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <hr ng-show="v.hr" ng-repeat-end /> 
+            </div>
+            </div>
+        </div> 
+
+    </div>
+</div>

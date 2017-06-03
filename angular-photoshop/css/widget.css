@@ -1,0 +1,25 @@
+/*组件样式*/
+.panel{
+    margin-bottom: 0;
+}
+.panel-ps {
+    border-width: 5px;
+    border-color: #636363;
+}
+.panel-ps > .panel-heading {
+    padding: 0;
+    color: #fff;
+    background-color: #636363;
+    border-color: #636363;
+
+}
+.panel-ps > .panel-heading:hover{
+    background-color: #737373;
+}
+.panel-ps > .panel-heading .glyphicon{
+    color: #ccc;
+    transform: scale(0.6);
+}
+.panel-ps > .panel-body {
+    padding: 10px;
+}

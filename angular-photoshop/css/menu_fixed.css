@@ -1,0 +1,159 @@
+#menu-fixed{
+    position: absolute;
+}
+#menu-fixed .submenu{
+    position: relative;
+    padding: 2px;
+    border: 1px solid #a0a0a0;
+    background: #ededed;
+    white-space:nowrap;
+}
+#menu-fixed .submenu:before{
+    content: "\e113";
+    display: none;
+    top: 0;
+    width: 100%;
+    padding-left: 20px;
+    padding-right: 15px;
+    font-family: 'Glyphicons Halflings';
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+#menu-fixed .submenu:after{
+    content: "\e114";
+    display: none;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+    padding-left: 20px;
+    padding-right: 15px;
+    font-family: 'Glyphicons Halflings';
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+#menu-fixed .submenu.wheel:before,
+#menu-fixed .submenu.wheel:after{
+    display: block;
+}
+#menu-fixed .item .submenu .list-wrap{
+    overflow: hidden;
+}
+#menu-fixed .item .submenu .list{
+    transition: transform .3s ease-out;
+}
+
+#menu-fixed .submenu-level-1{
+    top: 18px;
+    left: -2px;
+}
+#menu-fixed .submenu-level-2{
+    right: 0;
+    top: -5px;
+    z-index: 2;
+    transform: translate(100%, 0);
+}
+
+#menu-fixed .item-level-1{
+    float: left;
+    margin: 1px 5px;
+}
+#menu-fixed .item-level-1>a{
+    display: block;
+    padding: 0 2px;
+    border-radius: 3px;
+    font-size: 12px;
+}
+#menu-fixed .item-level-1.show>a,
+#menu-fixed .item-level-1:hover>a{
+    box-shadow: 0 0 0 1px #9499a6;
+}
+
+#menu-fixed .item-level-1.show>.submenu{
+    display: block;
+}
+#menu-fixed .item-level-1.file>.submenu{
+    width: 350px;
+}
+#menu-fixed .item-level-1.edit>.submenu{
+    width: 255px;
+}
+#menu-fixed .item-level-1.image>.submenu{
+    width: 215px;
+}
+#menu-fixed .item-level-1.layer>.submenu{
+    width: 240px;
+}
+#menu-fixed .item-level-1.select>.submenu{
+    width: 215px;
+}
+#menu-fixed .item-level-1.filter>.submenu{
+    width: 260px;
+}
+#menu-fixed .item-level-1.view>.submenu{
+    width: 215px;
+}
+#menu-fixed .item-level-1.window>.submenu{
+    width: 140px;
+}
+#menu-fixed .item-level-1.help>.submenu{
+    width: 180px;
+}
+
+#menu-fixed .item-level-2.transform>.submenu{
+    width: 190px;
+}
+#menu-fixed .item-level-2.preferences>.submenu{
+    width: 180px;
+}
+#menu-fixed .item-level-2.adjustment>.submenu{
+    width: 250px;
+}
+
+
+#menu-fixed .item{
+    position: relative;
+    cursor: default;
+}
+#menu-fixed .submenu .item{
+    padding: 2px 15px 2px 20px;
+    font-size: 12px;
+}
+#menu-fixed .submenu .item[disabled]>a,
+#menu-fixed .submenu .item[disabled]>.shortcut-key,
+#menu-fixed .submenu .item[disabled]>.more{
+    color: #ccc!important;
+}
+#menu-fixed .submenu .item:hover{
+    background: #3399ff;
+}
+#menu-fixed .submenu .item:hover>a,
+#menu-fixed .submenu .item:hover>.shortcut-key,
+#menu-fixed .submenu .item:hover>.more{
+    color: #fff;
+}
+#menu-fixed .submenu .item>.shortcut-key{
+    float: right;
+}
+#menu-fixed .submenu .item .more{
+    float: right;
+    margin-right: -10px;
+    transform: scale(0.6);
+}
+#menu-fixed .submenu .item.selected:before{
+    position: absolute;
+    content: "\e013";
+    left: 2px;
+    font-family: 'Glyphicons Halflings';
+    transform: scale(0.75);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+
+#menu-fixed .submenu{
+    counter-reset: sectioncounter;
+}
+#menu-fixed .submenu>.item.sort>a:before{
+    content: counter(sectioncounter) " ";
+    counter-increment: sectioncounter;
+}

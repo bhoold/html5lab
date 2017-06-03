@@ -1,0 +1,39 @@
+.panel{
+    margin-bottom: 0;
+}
+.panel-ps {
+    border-width: 5px;
+    border-color: #636363;
+}
+.panel-ps > .panel-heading {
+    padding: 0;
+    color: #fff;
+    background-color: #636363;
+    border-color: #636363;
+
+}
+.panel-ps > .panel-heading:hover{
+    background-color: #737373;
+}
+.panel-ps > .panel-heading .glyphicon{
+    color: #ccc;
+    transform: scale(0.6);
+}
+.panel-ps > .panel-body {
+    padding: 10px;
+}
+
+#panel{
+    position: absolute;
+    left: calc(100% - 282px);
+    width: 282px;
+    z-index: 999;
+    max-height: 90%;
+    overflow: auto;
+}
+#panel .group{
+    float: right;
+}
+#panel .panel-ps .panel-heading{
+    text-align: right;
+}

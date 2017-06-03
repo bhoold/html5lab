@@ -1,0 +1,27 @@
+button,
+input[type='button'],
+.btn{
+    min-width: 80px;
+    margin: 5px;
+    padding: 0px;
+    border: 1px solid #707070;
+    border-radius: 5px;
+    font-size: 12px;
+    background: linear-gradient(to bottom, #f2f2f2 0%, #ebebeb 50%, #dbdbdb 50%, #cfcfcf 100%);
+}
+button:hover,
+input[type='button']:hover,
+.btn:hover{
+    background: linear-gradient(to bottom, #eaf6fd 0%, #d9f0fc 50%, #bce5fc 50%, #a7d9f5 100%);
+}
+
+.btn-default{
+    box-shadow: inset 0 0 2px 1px #3fcef2;
+}
+.btn-default:hover{
+    box-shadow: none;
+}
+.btn-default:active{
+    background: linear-gradient(to bottom, #e5f4fc 0%, #c9e7f7 50%, #98d1ef 50%, #68b3db 100%);
+    border-color: #122b40;
+}

@@ -1,0 +1,136 @@
+#editor{
+    position: absolute;
+    top: 55px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+#editor .item{
+    position: absolute;
+    border: 1px solid rgba(0,0,0,1);
+    box-sizing: content-box;
+}
+#editor .item.active{
+    z-index: 800!important;
+}
+#editor .panel{
+    /*
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    */
+    position: relative;
+    height: 100%;
+    border: none;
+}
+#editor .panel-heading{
+    padding: 6px 8px;
+    background: linear-gradient(to bottom, #fff 0%, #fff 2%, #98b4d0 4%, #b8d0e9 100%);
+    font-size: 12px;
+}
+#editor .panel-heading.moving:before{
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+}
+#editor .panel-body{
+    /*-webkit-box-flex: 1;*/
+    padding: 0;
+    height: calc(100% - 30px);
+    overflow: scroll;
+}
+#editor .stage{
+    position: relative;
+    padding: 16px 0 0 16px;
+    height: 100%;
+    /*background: rgb(192,192,192);*/
+    background: rgb(245,245,245);
+}
+#editor canvas{
+    position: absolute;
+    background: #fff;
+}
+#editor canvas.top{
+    top: 0;
+    left: 15px;
+    border-bottom: 1px solid #000;
+}
+#editor canvas.left{
+    top: 15px;
+    left: 0;
+    border-right: 1px solid #000;
+}
+#editor iframe{
+    position: absolute;
+    /*
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);*/
+    outline: 1px solid #000;
+    box-sizing: content-box;
+}
+#editor .border{
+    display: block;
+    position: absolute;
+}
+#editor .border.left{
+    top: 0;
+    left: -4px;
+    height: 100%;
+    width: 4px;
+    cursor: e-resize;
+}
+#editor .border.top{
+    top: -4px;
+    height: 4px;
+    width: 100%;
+    cursor: n-resize;
+}
+#editor .border.right{
+    top: 0;
+    right: -4px;
+    height: 100%;
+    width: 4px;
+    cursor: e-resize;
+}
+#editor .border.bottom{
+    bottom: -4px;
+    height: 4px;
+    width: 100%;
+    cursor: n-resize;
+}
+#editor .border.left-top{
+    left: -6px;
+    top: -6px;
+    width: 12px;
+    height: 12px;
+    cursor: nw-resize;
+}
+#editor .border.right-top{
+    right: -6px;
+    top: -6px;
+    width: 12px;
+    height: 12px;
+    cursor: ne-resize;
+}
+#editor .border.right-bottom{
+    right: -6px;
+    bottom: -6px;
+    width: 12px;
+    height: 12px;
+    cursor: nw-resize;
+}
+#editor .border.left-bottom{
+    left: -6px;
+    bottom: -6px;
+    width: 12px;
+    height: 12px;
+    cursor: ne-resize;
+}
+#editor .border.moving{
+    width: 100%;
+    height: 100%;
+}

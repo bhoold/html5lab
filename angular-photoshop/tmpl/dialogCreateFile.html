@@ -1,0 +1,27 @@
+<div class="panel dialog clearfix">
+  <div class="panel-heading">新建</div>
+  <div class="panel-body">
+    <form class="form-horizontal">
+    <div class="form-group">
+        <label class="control-label">名称(N): </label>
+        <p><input name="title" class="form-control" ng-model="stage.title" /></p>
+    </div>
+    <fieldset>
+        <legend>预设(P): </legend>
+        <div class="form-group">
+            <label class="control-label">宽度(W): </label>
+            <p><input name="width" type="number" min="0" class="form-control" ng-model="stage.canvas.width" /></p>
+        </div>
+        <div class="form-group">
+            <label class="control-label">高度(H): </label>
+            <p><input name="height" type="number" min="0" class="form-control" ng-model="stage.canvas.height" /></p>
+        </div>
+    </fieldset>
+    </form>
+  </div>
+  <div class="panel-footer">
+    <button type="button" class="btn btn-default" ng-click="ok()">确定</button>
+    <button type="button" class="btn" ng-click="reset()" ng-hide="true">复位</button>
+    <button type="button" class="btn" ng-click="cancel()">取消</button>
+  </div>
+</div>

@@ -1,0 +1,75 @@
+.panel.dialog{
+    border: 2px solid #b9d1ea;
+    font-size: 12px;
+    background: #ededed;
+}
+.panel.dialog .panel-heading{
+    padding: 3px 4px;
+    background: linear-gradient(to bottom, #fff 0%, #fff 2%, #98b4d0 4%, #b9d1ea 40%);
+}
+.panel.dialog .panel-body{
+    float: left;
+    width: calc(100% - 160px);
+}
+.panel.dialog .form-group>label{
+    float: left;
+    width: 120px;
+    padding-top: 4px;
+    padding-right: 5px;
+}
+.panel.dialog .form-group>p{
+    float: left;
+    margin: 0;
+    width: 200px;
+}
+.panel.dialog .form-group input{
+    padding: 3px;
+    height: auto;
+    font-size: 12px;
+    line-height: 0;
+}
+.panel.dialog fieldset{
+    padding: 0 15px;
+}
+.panel.dialog fieldset .form-group>label{
+    width: 105px;
+}
+.panel.dialog fieldset .form-group>p{
+    width: 180px;
+}
+
+.panel.dialog .panel-footer{
+    float: right;
+    width: 160px;
+    border: 0;
+    background: none;
+}
+.panel.dialog .panel-footer .btn{
+    width: 120px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.dialog-new-file .modal-dialog{
+    width: 500px;
+}
+.dialog-reset-stage .modal-dialog{
+    width: 500px;
+}
+.dialog-reset-stage .modal-dialog fieldset:first-child{
+    margin-bottom: 10px;
+}

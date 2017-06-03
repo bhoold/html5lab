@@ -1,0 +1,10 @@
+<div id="toolKit" class="panel panel-ps" ng-class="{'simple':simpleMode}" ng-init="simpleMode=false">
+  <div class="panel-heading">
+        <i class="glyphicon glyphicon-backward"></i>
+  </div>
+  <div class="panel-body">
+    <a draggable="true" ng-repeat="value in list" data-name="{{value.name}}" ng-click="showSubItem($index)" ondragstart="" ondrag="" ondragend="" title="可拖动到画布">
+        <i class="{{value.icon}}"></i><span>{{value.label}}</span>
+    </a>
+  </div>
+</div>

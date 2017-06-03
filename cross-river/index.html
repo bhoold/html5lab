@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+  <head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit">
+    <meta name="viewport" content="width=640">
+    <title>猫猫过河</title>
+    <style type="text/css">
+      *{
+        margin: 0;
+        padding: 0;
+
+      }
+      html,body{
+        height: 100%;
+        background: #3f744d;
+      }
+      canvas{
+        margin: auto;
+      }
+    </style>
+    <script src="phaser.min.js"></script>
+    <script type="text/javascript">
+var game, width, height, timer, timeStart, steps, ending;
+var map, mapLayer, ship, pandas = [], currentPanda, dialog;
+
+function gameInit() {
+  game = null, width = null, height = null, timer = '00:00:00', timeStart = 0, steps = 0, ending = false;
+  map = null, mapLayer = null, ship = null, pandas = [], currentPanda = null, dialog = null;
+
+  width = 640; 
+  height = Math.max(960, document.body.offsetHeight);
+
+  game = new Phaser.Game(width, height, Phaser.AUTO, '', { preload: preload, create: create, update: update, render: render }, true);
+}
+
+function gameOver(result) {
+  ending = true;
+  result == 'success' ? success() : fail();
+  var group = game.add.group();
+  var bmd = game.add.bitmapData(115, 40);
+  bmd.ctx.beginPath();
+  bmd.ctx.rect(0, 0, 115, 40);
+  bmd.ctx.fillStyle = '#103a18';
+  bmd.ctx.fill();
+  var btn = game.make.sprite(game.width/2 - 57, game.height/2 + 80, bmd);
+  btn.addChild(game.make.text(13, 8, "再玩一次", {font: "22px Arial", fill: '#ffffff'}));
+
+  btn.inputEnabled = true;
+  btn.input.pixelPerfectClick = true;
+  btn.events.onInputDown.add(function(){
+    game.destroy();
+    gameInit();
+  }, this);
+  group.add(btn);
+
+  function success(){
+    textGroup.visible = false;
+    game.add.text(game.width/2 - 260, 350, "世纪难题都给你破解了!", { font: "50px Arial", fill: '#ff0000' });
+  }
+  function fail(){
+    textGroup.visible = false;
+    game.add.text(game.width/2 - 145, 350, "智商堪忧", { font: "70px Arial", fill: '#ff0000' });
+  }
+}
+
+function gameDialog(context){
+  g = game.add.group();
+  dialog = game.make.sprite(0, 0, 'menuBg');
+  dialog.scale.setTo(.7,.7);
+  g.add(dialog);
+
+  g.add(game.make.text(g.width/2 - 30, 40, "规则", {font: "30px Arial", fill: '#ffffff'}));
+
+  var rule = "三只大猫ABC和三只小猫abc，abc分别是\nABC的孩子。现在它们要过河，但只有一艘\n一次最多只能承载两只猫的船，船不能自己\n移动，必须至少有一只猫划船。只有ABC和\na会划船。小猫如果没有它的母亲在身边的\n话，就会被旁边的大猫吃掉。"
+
+  var style = { font: "24px Arial", fill: "#fff", 
+        align: "left",
+        boundsAlignH: "left", 
+        boundsAlignV: "top", 
+        wordWrap: true, wordWrapWidth: 300 };
+  var text = game.make.text(35, 90, rule, style);
+  g.add(text);
+
+  var bmd = game.add.bitmapData(75, 40);
+  bmd.ctx.beginPath();
+  bmd.ctx.rect(0, 0, 75, 40);
+  bmd.ctx.fillStyle = '#103a18';
+  bmd.ctx.fill();
+  var btn = game.make.sprite(g.width/2 - 35, g.height - 70, bmd);
+  btn.addChild(game.make.text(16, 8, "开始", {font: "22px Arial", fill: '#ffffff'}));
+
+  btn.inputEnabled = true;
+  btn.input.pixelPerfectClick = true;
+  btn.events.onInputDown.add(function(){
+    g.visible = false;
+    timeStart = (new Date()).getTime();
+  }, this);
+  g.add(btn);
+
+  g.x = game.width/2 - g.width/2;
+  g.y = game.height/2 - g.height/2;
+
+ game.add.tween(g.scale).from( { x: 0, y: 0 }, 500, Phaser.Easing.Back.Out, true);
+ game.add.tween(g).from( { x: game.width/2, y: game.height/2 }, 500, Phaser.Easing.Back.Out, true);
+
+}
+
+
+function Panda(coordinate, image, attribute){
+  var panda = this;
+  Phaser.Sprite.call(panda, game, coordinate[0], coordinate[1], image);
+  panda.initCoordinate = {
+    x: coordinate[0],
+    y: coordinate[1]
+  }
+  panda.step = 1;
+  panda.toggleMenu = function(){
+    if(g.visible)return false;
+    var panda = this;
+    if(setTextVisible()){
+      setTextItem();
+      setTextCoordinate();
+      currentPanda = panda;
+    }
+
+    function setTextVisible(){
+      //是否在船上
+      if(panda.step != 2){
+        //是否有票
+        if(ship.remaining > 0){
+          if(currentPanda == panda)
+            textGroup.visible = !textGroup.visible;
+          else
+            textGroup.visible = true;
+        }else
+          return false;
+      }else{
+        if(currentPanda == panda)
+          textGroup.visible = !textGroup.visible;
+        else
+          textGroup.visible = true;
+      }
+      return true;
+    }
+    function setTextItem(){
+      textGroup.children[0].visible = panda.step != 2;
+      textGroup.children[1].visible = panda.step == 2;
+      textGroup.children[2].visible = panda.isDriver && panda.step == 2;
+    }
+    function setTextCoordinate(){
+      if(panda.step != 2){
+        if(panda.isChild){
+          textGroup.x = panda.x + 50;
+          textGroup.y = panda.y + 5;
+        }else{
+          textGroup.x = panda.x + 60;
+          textGroup.y = panda.y + 20;
+        }
+      }else{
+        if(panda.isChild){
+          textGroup.x = panda.x - 10;
+          textGroup.y = panda.y - 90;
+        }else{
+          textGroup.x = panda.x;
+          textGroup.y = panda.y - 90;
+        }
+      }
+    }
+  };
+  panda.aboard = function(){
+    var seat = ship.giveSeat(this);
+    if(seat){
+      this.seatID = seat.id;
+      this.x = seat.x;
+      this.y = seat.y;
+      this.step = 2;
+    }
+  };
+  panda.ashore = function(){
+    if(!ship.isArrived){
+      this.x = this.initCoordinate.x;
+      this.y = this.initCoordinate.y;
+      this.step = 1;
+    }else{
+      this.x = this.initCoordinate.x + 370;
+      this.y = this.initCoordinate.y;
+      this.step = 3;
+    }
+    ship.retrieveSeat(this.seatID);
+  };
+
+
+  for(var key in attribute){
+    if(attribute.hasOwnProperty([key]))
+      panda[key] = attribute[key];
+  }
+
+  if(!panda.isChild)
+    panda.scale.setTo(.25, .25);
+  else
+    panda.scale.setTo(.15, .15);
+
+  panda.inputEnabled = true;
+  panda.input.pixelPerfectClick = true;
+  panda.events.onInputDown.add(function(panda){
+    if(ship.isSailing || (panda.step == 1 && ship.isArrived) || panda.step == 3 && !ship.isArrived)
+      return false;
+    panda.toggleMenu();
+  }, this);
+
+
+  game.add.existing(panda);
+}
+Panda.prototype = Object.create(Phaser.Sprite.prototype);
+Panda.prototype.constructor = Panda;
+
+
+
+function preload() {
+  game.load.tilemap('map', 'map.json', null, Phaser.Tilemap.TILED_JSON);
+  game.load.image('mapTiles', 'images/map.png');
+
+  game.load.image('menuBg', 'images/menu-bg.png');
+
+  game.load.image('ship', 'images/ship.png');
+
+  game.load.image('umbrella1', 'images/umbrella1.png');
+  game.load.image('umbrella2', 'images/umbrella2.png');
+
+  game.load.image('panda1', 'images/panda1.png');
+  game.load.image('panda2', 'images/panda2.png');
+  game.load.image('panda3', 'images/panda3.png');
+}
+
+function create() {
+
+  map = game.add.tilemap('map');
+  map.addTilesetImage('map', 'mapTiles');
+  mapLayer = map.createLayer('world');
+  mapLayer.wrap = true;
+
+  var umbrella1 = game.add.sprite(50, height/2, 'umbrella1');
+  umbrella1.scale.setTo(.5, .5);
+  var umbrella2 = game.add.sprite(540, height/2, 'umbrella2');
+  umbrella2.scale.setTo(.5, .5);
+
+  ship = game.add.sprite(175, height/2 - 30, 'ship');
+  ship.scale.setTo(.6, .6);
+  ship.isSailing = false;
+  ship.isArrived = false;
+  ship.seats = [
+    {
+      id: 1,
+      isSaled: false,
+      get x(){
+        return ship.x + 10;
+      },
+      get y(){
+        return ship.y;
+      },
+      get childX(){
+        return ship.x + 10;
+      },
+      get childY(){
+        return ship.y + 30;
+      }
+    },
+    {
+      id: 2,
+      isSaled: false,
+      get x(){
+        return ship.x + 65;
+      },
+      get y(){
+        return ship.y;
+      },
+      get childX(){
+        return ship.x + 80;
+      },
+      get childY(){
+        return ship.y + 30;
+      }
+    }
+  ];
+  ship.remaining = ship.seats.length;
+  ship.giveSeat = function(panda){
+    var ship = this, pandaSeat;
+    if(ship.remaining == 0)
+      return null;
+    ship.seats.forEach(function(seat){
+      if(!seat.isSaled && !pandaSeat){
+        seat.isSaled = true;
+        ship.remaining--;
+        pandaSeat = {
+          id: seat.id,
+          x: panda.isChild ? seat.childX : seat.x,
+          y: panda.isChild ? seat.childY : seat.y,
+        };
+      }
+    });
+    return pandaSeat;
+  };
+  ship.retrieveSeat = function(seatID){
+    ship.seats.forEach(function(seat){
+      if(seat.id == seatID){
+        seat.isSaled = false;
+        ship.remaining++;
+      }
+    });
+  }
+  ship.sail = function(){
+    var ship = this;
+    var tween = game.add.tween(ship);
+
+    tween.onStart.add(function(){
+      ship.isSailing = true;
+      steps++;
+    }, this);
+    tween.onComplete.add(function(){
+      ship.isSailing = false;
+      ship.isArrived = !ship.isArrived;
+    }, this);
+
+    var shipX = ship.isArrived ? ship.x - 165 : ship.x + 165;
+    tween.to( { x: shipX }, 3000, "Linear", true);
+    for (var i = pandas.length - 1; i >= 0; i--) {
+      if(pandas[i].step == 2){
+        var pandaX = ship.isArrived ? pandas[i].x - 165 : pandas[i].x + 165;
+        game.add.tween(pandas[i]).to( { x: pandaX }, 3000, "Linear", true);
+      }
+    }
+  };
+
+  [
+    {coordinate: [110, 630], image: 'panda1', name: 'A', isChild: false, group: 1, isDriver: true},
+    {coordinate: [120, 570], image: 'panda1', name: 'a', isChild: true, group: 1, isDriver: true},
+    {coordinate: [110, 480], image: 'panda3', name: 'B', isChild: false, group: 2, isDriver: true},
+    {coordinate: [120, 420], image: 'panda3', name: 'b', isChild: true, group: 2, isDriver: false},
+    {coordinate: [110, 330], image: 'panda2', name: 'C', isChild: false, group: 3, isDriver: true},
+    {coordinate: [120, 270], image: 'panda2', name: 'c', isChild: true, group: 3, isDriver: false}
+  ].forEach(function(panda){
+    pandas.push(new Panda(panda.coordinate, panda.image, {name: panda.name, isChild: panda.isChild, group: panda.group, isDriver: panda.isDriver}));
+  })
+
+  textGroup = game.add.group();
+  textGroup.visible = false;
+  [
+    {
+      y: 0, 
+      text: '上船', 
+      visible: true,
+      click: function(){
+        textGroup.visible = false;
+        currentPanda.aboard();
+      }
+    },
+    {
+      y: 40, 
+      text: '下船', 
+      visible: false,
+      click: function(){
+        textGroup.visible = false;
+        currentPanda.ashore();
+      }
+    },
+    {
+      y: 0, 
+      text: '开船', 
+      visible: false,
+      click: function(){
+        textGroup.visible = false;
+        ship.sail();
+      }
+    }
+  ].forEach(function(item){
+    var bmd = game.add.bitmapData(55, 30);
+    bmd.ctx.beginPath();
+    bmd.ctx.rect(0, 0, 55, 30);
+    bmd.ctx.fillStyle = '#103a18';
+    bmd.ctx.fill();
+    var text = game.make.sprite(0, item.y, bmd);
+    text.addChild(game.make.text(6, 3, item.text, {font: "22px Arial", fill: '#ffffff'}));
+    text.visible = item.visible;
+
+    text.inputEnabled = true;
+    text.input.pixelPerfectClick = true;
+    text.events.onInputDown.add(item.click, this);
+    textGroup.add(text);
+  });
+
+
+  gameDialog();
+
+}
+function update() {
+  if(timeStart != 0 && !ending){
+    var time = (new Date()).getTime();
+    var seconds = ((time - timeStart)/1000) >> 0;
+    var minutes = Math.floor(seconds/60);
+    var hours = Math.floor(minutes/60);
+    seconds = seconds%60;
+    minutes = minutes%60;
+
+    hours = hours < 10 ? '0' + hours : hours;
+    minutes = minutes < 10 ? '0' + minutes : minutes;
+    seconds = seconds < 10 ? '0' + seconds : seconds;
+
+    timer = hours + ':' + minutes + ':' + seconds;
+  }
+
+  var count = 0;
+  pandas.forEach(function(panda){
+    if(panda.isChild){
+      var isProtect = false;
+      pandas.forEach(function(mother){
+        if(mother.group == panda.group && !mother.isChild)
+          switch(panda.step){
+            case 1:
+              if(mother.step == 1){
+                isProtect = true;
+              }else if(mother.step == 2){
+                if(!ship.isArrived && !ship.isSailing)
+                  isProtect = true;
+              }
+            break;
+            case 2:
+              if(mother.step == 1){
+                if(!ship.isArrived && !ship.isSailing)
+                  isProtect = true;
+              }else if(mother.step == 2){
+                isProtect = true;
+              }else{
+                if(ship.isArrived && !ship.isSailing)
+                  isProtect = true;
+              }
+            break;
+            case 3:
+              if(mother.step == 3){
+                isProtect = true;
+              }else if(mother.step == 2){
+                if(ship.isArrived && !ship.isSailing)
+                  isProtect = true;
+              }
+          }
+      });
+      if(!isProtect)
+        pandas.forEach(function(mother){
+          if(!mother.isChild && mother.group != panda.group)
+            switch(panda.step){
+              case 1:
+                if(mother.step == 1)
+                  gameOver('fail');
+              break;
+              case 2:
+                if(mother.step == 1 && (!ship.isArrived && !ship.isSailing))
+                  gameOver('fail');
+                else if(mother.step == 2)
+                  gameOver('fail');
+                else if(mother.step == 3 && (ship.isArrived && !ship.isSailing))
+                  gameOver('fail');
+              break;
+              case 3:
+                if(mother.step == 2 && (ship.isArrived && !ship.isSailing))
+                  gameOver('fail');
+                else if(mother.step == 3)
+                  gameOver('fail');
+            }
+        });
+    }
+    if(panda.step == 3)
+      count++;
+  });
+  if(count == 6)
+    gameOver('success');
+}
+
+function render() {
+  game.debug.text('时间 ' + timer + '    步数 ' + steps, 35, 25, "#ffffff", "20px Arial");
+}
+    </script>
+  </head>
+  <body onload="gameInit()"><img src="logo.png" style="position: absolute;opacity: 0;filter: alpha(opacity=0);"></body>
+</html>
