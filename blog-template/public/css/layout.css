@@ -1,0 +1,47 @@
+.font{font-family:微软雅黑,黑体,Arial,Verdana,Sans-serif;}
+*{border:none;margin:0;padding:0;}
+.clear{clear:both;border:0;font-size:0;}
+ul li{list-style-type:none;}
+a{text-decoration:none;color:#000;}
+a:focus { outline: none; }
+body { 
+	font-family:'宋体',Arial,Verdana,Sans-serif; 
+	font-size:12px;
+	-webkit-text-size-adjust: none;
+	background:url(../images/bg.jpg) repeat;
+	background-attachment:fixed;
+}
+#header{
+	margin-top:-40px;
+	height:40px;
+	width:100%;
+	position:fixed;
+	background:url(../images/header_bg.png) repeat-x;
+}
+#header ul{
+	width:1000px;
+	margin:0 auto;
+}
+#header ul li{
+	float:left;
+}
+#header ul li a{
+	display:block;
+	height:33px;
+	padding:0 20px;
+	line-height:30px;
+	font-size:14px;
+}
+#header ul li a.hov,#header ul li a:hover{
+	background:#fff;
+	border-bottom:2px solid #000000;
+}
+#main{
+	height:1300px;
+	width:1000px;
+	margin:0 auto;
+	background:#fff;
+}
+#main main_box{
+
+}
