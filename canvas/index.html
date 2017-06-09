@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" >
+	<title> New Document </title>
+  <META name="Author" content="">
+  <META name="Keywords" content="">
+  <META name="Description" content="">
+</head>
+<body>
+<canvas id="myCanvas" width="800" height="600" style="border:1px solid #d3d3d3;">
+
+<script type="text/javascript">
+Kaleidoscope();
+function Kaleidoscope(){
+var c=document.getElementById("myCanvas");
+var ctx=c.getContext("2d");
+	imgSrc='http://www.everyinch.net/wp-content/uploads/kals/assets/Flower0.jpg';
+			radius = 200;//半径
+			numSegments = 300; //分段数
+			angle = 360/numSegments; //每个分段旋转的角度
+			radian = angle*Math.PI/180; //叫旋转的角度转换为弧度
+			segmentWidth = 2 * radius * Math.sin(radian/2); //分段的宽度 = 半径*sin(弧度/2)*2
+			segmentHeight = radius * Math.cos(radian/2); //分段的高度 = 半径*cos(弧度/2)
+ 
+			segments = [];
+			isReady = false;
+img =new Image();
+img.onload=loaded;
+img.src=imgSrc;
+
+
+function loaded(){
+	picWidth =this.width;
+	picHeight =this.height;
+	ctx.translate(picWidth/2,picHeight/2);
+			for(var i=0;i<numSegments;i++){
+				//segments[i] = new Sprite();
+				//segments[i].rotation = i*angle;
+
+
+//ctx.scale(Math.random()*0.5+0.5,Math.random()*0.5+0.5);
+	ctx.rotate(Math.random()*Math.PI*2);
+
+	var pat=ctx.createPattern(img,'repeat');
+	ctx.moveTo(0,0);
+	ctx.lineTo(-segmentWidth/2,-segmentHeight);
+	ctx.lineTo(segmentWidth/2,-segmentHeight);
+	ctx.fillStyle=pat;
+	ctx.fill();
+
+			}
+
+
+
+}
+
+
+
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function draw()
+{
+var c=document.getElementById("myCanvas");
+var ctx=c.getContext("2d");
+ctx.clearRect(0,0,c.width,c.height); 
+var a=new Image();
+a.onload=function(){
+	var pat=ctx.createPattern(this,'repeat');
+	ctx.rect(0,0,150,100);
+	ctx.fillStyle=pat;
+	ctx.fill();
+
+}
+a.src='http://www.everyinch.net/wp-content/uploads/kals/assets/Flower0.jpg';
+
+}
+
+</script>
+</body>
+</html>
