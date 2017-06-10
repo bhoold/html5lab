@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+	<meta charset="utf-8" />
+	<title>p1</title>
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.3/jquery.min.js"></script>
+</head>
+<body><div id="centerdiv">
+<div class="p">
+					<div class="n_c_top">
+						<img src="images/1.jpg" width="945" height="465" />
+					</div>
+					<div class="n_c_list">
+						<a class="s prev" href="#"><img src="images/prev.gif" /></a>
+						<div class="div_ul">
+						<ul>
+							<li><a class="cur" href="#"><img src="images/1.jpg" /></a></li>
+							<li><a href="#"><img src="images/2.jpg" /></a></li>
+							<li><a href="#"><img src="images/1.jpg" /></a></li>
+							<li><a href="#"><img src="images/2.jpg" /></a></li>
+							<li><a href="#"><img src="images/1.jpg" /></a></li>
+							<li><a href="#"><img src="images/2.jpg" /></a></li>
+							<li><a href="#"><img src="images/1.jpg" /></a></li>
+							<li><a href="#"><img src="images/2.jpg" /></a></li>
+							<li><a href="#"><img src="images/1.jpg" /></a></li>
+							<li><a href="#"><img src="images/2.jpg" /></a></li>
+							<li><a href="#"><img src="images/1.jpg" /></a></li>
+
+						</ul>
+						</div>
+						<a class="s next" href="#"><img src="images/next.gif" /></a>
+					</div>
+</div>
+</div>
+<script>
+function video(){
+	var oul=$("#centerdiv .p .n_c_list ul");
+	var oli=$("#centerdiv .p .n_c_list ul li");
+	oul.width(oli.width()*oli.length);
+	$("#centerdiv .p .n_c_list ul li").click(function(){
+		$("#centerdiv .p .n_c_top img").attr("src",$(this).find("img").attr("src"));
+		$("#centerdiv .p .n_c_list ul li a").removeClass("cur");
+		$(this).find("a").addClass("cur");return false;
+	});
+ 
+	var li_len=Math.ceil(oli.length/8);
+	var positions=[];
+	var pos=1;
+	for(var i=0;i<li_len;i++){
+		positions[i]=888*i;
+	}
+	$("#centerdiv .p .n_c_list a.prev").click(function(){
+		pos=pos-2;
+		if(pos<0)pos+=li_len;
+		$('#centerdiv .p .n_c_list ul').stop().animate({marginLeft:-positions[pos]+'px'},450);
+		pos++;return false;
+	});
+	$("#centerdiv .p .n_c_list a.next").click(function(){
+		if(pos>li_len-1)pos=0;
+		$('#centerdiv .p .n_c_list ul').stop().animate({marginLeft:-positions[pos]+'px'},450);
+		pos++;return false;
+	});
+ 
+}
+ 
+video();
+
+</script>
+
+<style>
+*{border:none;margin:0;padding:0;}
+.clear{clear:both;border:0;font-size:0;}
+ul li{list-style-type:none;}
+a{text-decoration:none;color:#000;}
+a:focus { outline: none; }
+body { 
+	font-family:'宋体',Arial,Verdana,Sans-serif; 
+	font-size:12px;
+	-webkit-text-size-adjust: none;
+}
+
+
+#centerdiv{background:#ccc;margin:0 auto;}
+#centerdiv{width:980px;height:560px;z-index:1000;overflow:hidden;}
+#centerdiv .p{position:relative;}
+#centerdiv .p .n_c_top{width:950px;margin:0 auto;}
+#centerdiv .p .n_c_top img{border:2px solid #434343;}
+#centerdiv .p .n_c_list{position:relative;}
+#centerdiv .p .n_c_list a.s{display:block;position:absolute;}
+#centerdiv .p .n_c_list a.prev{left:0;top:5px;}
+#centerdiv .p .n_c_list a.next{right:0;top:5px;}
+ 
+#centerdiv .p .n_c_list .div_ul{margin-left:45px;width:888px;height:68px;overflow:hidden;}
+#centerdiv .p .n_c_list .div_ul ul{padding:0;margin:0;}
+#centerdiv .p .n_c_list li{float:left;}
+#centerdiv .p .n_c_list li a{display:block;width:111px;height:68px;}
+#centerdiv .p .n_c_list li a.cur,#centerdiv .p .n_c_list li a:hover{background:url(images/cur_bg.gif) no-repeat;}
+#centerdiv .p .n_c_list li img{margin-top:8px;margin-left:2px;width:107px;height:57px;}
+
+</style>
+</body>
+</html>
+	

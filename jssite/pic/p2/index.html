@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+	<meta charset="utf-8" />
+	<title>p2</title>
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.3/jquery.min.js"></script>
+</head>
+<body>
+<div id="prolist">
+	<ul>
+		<li><a><img src="images/1.jpg" onclick="swap(this)" width="50" height="50" /></a></li>
+		<li><a><img src="images/2.jpg" onclick="swap(this)" width="50" height="50" /></a></li>
+		<li><a><img src="images/1.jpg" onclick="swap(this)" width="50" height="50" /></a></li>
+		<li><a><img src="images/2.jpg" onclick="swap(this)" width="50" height="50" /></a></li>
+		<li><a><img src="images/1.jpg" onclick="swap(this)" width="50" height="50" /></a></li>
+		<li><a><img src="images/2.jpg" onclick="swap(this)" width="50" height="50" /></a></li>
+		<li><a><img src="images/1.jpg" onclick="swap(this)" width="50" height="50" /></a></li>
+		<li><a><img src="images/2.jpg" onclick="swap(this)" width="50" height="50" /></a></li>
+		<li><a><img src="images/1.jpg" onclick="swap(this)" width="50" height="50" /></a></li>
+		<li><a><img src="images/2.jpg" onclick="swap(this)" width="50" height="50" /></a></li>
+		<li><a><img src="images/1.jpg" onclick="swap(this)" width="50" height="50" /></a></li>
+		<li><a><img src="images/2.jpg" onclick="swap(this)" width="50" height="50" /></a></li>
+		<li><a><img src="images/1.jpg" onclick="swap(this)" width="50" height="50" /></a></li>
+		<li><a><img src="images/2.jpg" onclick="swap(this)" width="50" height="50" /></a></li>
+		<li><a><img src="images/1.jpg" onclick="swap(this)" width="50" height="50" /></a></li>
+		<li><a><img src="images/2.jpg" onclick="swap(this)" width="50" height="50" /></a></li>
+		<li><a><img src="images/1.jpg" onclick="swap(this)" width="50" height="50" /></a></li>
+		<li><a><img src="images/2.jpg" onclick="swap(this)" width="50" height="50" /></a></li>
+		<li><a><img src="images/1.jpg" onclick="swap(this)" width="50" height="50" /></a></li>
+		<li><a><img src="images/2.jpg" onclick="swap(this)" width="50" height="50" /></a></li>
+		<li><a><img src="images/1.jpg" onclick="swap(this)" width="50" height="50" /></a></li>
+		<li><a><img src="images/2.jpg" onclick="swap(this)" width="50" height="50" /></a></li>
+		<li><a><img src="images/1.jpg" onclick="swap(this)" width="50" height="50" /></a></li>
+		<li><a><img src="images/2.jpg" onclick="swap(this)" width="50" height="50" /></a></li>
+	</ul>
+	<div class="clear"></div>
+	<div style="margin:30px auto;"><img id="bigimg" src="images/2.jpg" width="500" /></div>
+</div>
+
+<style>
+*{border:none;margin:0;padding:0;}
+.clear{clear:both;border:0;font-size:0;}
+ul li{list-style-type:none;}
+a{text-decoration:none;color:#000;}
+a:focus { outline: none; }
+body { 
+	font-family:'宋体',Arial,Verdana,Sans-serif; 
+	font-size:12px;
+	-webkit-text-size-adjust: none;
+}
+
+#prolist{width:600px;overflow:hidden;text-align:center;margin:0 auto;background:#ccc;}
+#prolist ul{width:1000px;margin:0 auto;}
+#prolist li{float:left;}
+#prolist li a{}
+#prolist li a img{border:none;padding:0 3px;}
+
+</style>
+
+<script>
+var prolist=document.getElementById("prolist")
+var imgs=prolist.getElementsByTagName("img");
+for(var i=0;i<imgs.length;i++)imgs[i].index=i;
+var prolistWidth=600;
+var liWidth=$("#prolist li").width();
+$("#prolist ul").width(Math.max($("#prolist ul li").length*liWidth,prolistWidth));
+limitwidth=$("#prolist ul").width()-prolistWidth;
+var speed=0;
+function moveul(direction){
+	var timer=setInterval(function(){
+		if(speed>0){clearInterval(timer);speed=0;$("#prolist ul").css("margin-left",speed+"px");}
+		if(Math.abs(speed)>limitwidth){clearInterval(timer);speed="-"+limitwidth;$("#prolist ul").css("margin-left",speed+"px");}
+		$("#prolist ul").css("margin-left",speed+"px");
+		if(direction)speed-=5;else speed+=5;
+	},100);
+}
+ 
+
+$("#prolist li a").attr("href","javascript:;");
+function swap(t){
+	document.getElementById("bigimg").src=t.src;
+	speed=Math.min(Math.max(t.index*liWidth-(600/2-liWidth/2),0),limitwidth);
+	$("#prolist ul").animate({"margin-left":-speed},1000);
+}
+ 
+$("#prolist li a img").bind("mouseover",function(){
+	$(this).animate({opacity:0.2},500,function(){
+		$(this).animate({opacity:1},500);
+	});
+});
+
+</script>
+
+
+</body>
+</html>
+	

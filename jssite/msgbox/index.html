@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+	<meta charset="utf-8" />
+	<title>msgbox</title>
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.3/jquery.min.js"></script>
+	<script type="text/javascript" src="msgbox.js"></script>
+	<link rel="stylesheet" href="msgbox.css" />
+</head>
+<body>
+<button type="button" onclick="showdiv()">弹出</button>
+
+
+<div id="centerdiv" class="mydiv">
+	<div class="p">
+		我是居中层<button type="button" onclick="closeDiv()">关闭</button>
+	</div>
+</div>
+<div id="bg" class="bg" style="display:none;"></div>
+<iframe id='popIframe' class='popIframe' frameborder='0' ></iframe>
+
+
+
+
+<script>
+function showdiv(){
+document.getElementById('centerdiv').style.display='block';
+document.getElementById('popIframe').style.display='block';
+document.getElementById('bg').style.display='block';
+//document.getElementById('bg').onclick=function(){closeDiv()};//需要隐藏popIframe
+}
+function closeDiv(){
+document.getElementById('centerdiv').style.display='none';
+document.getElementById('bg').style.display='none';
+document.getElementById('popIframe').style.display='none';
+}
+
+</script>
+<style>
+
+
+.mydiv {
+width:800px;height:400px;z-index:1000;display:none;background:#fff;
+left:50%;
+top:50%;
+margin-left:-400px!important;/*FF IE7 该值为本身宽的一半 */
+margin-top:-200px!important;/*FF IE7 该值为本身高的一半*/
+margin-top:0px;
+position:fixed!important;/* FF IE7*/
+position:absolute;/*IE6*/
+_top:expression(eval(document.compatMode && document.compatMode=='CSS1Compat') ? documentElement.scrollTop + (document.documentElement.clientHeight-this.offsetHeight)/2 : document.body.scrollTop + (document.body.clientHeight - this.clientHeight)/2);
+}
+.bg,.popIframe {
+background-color: #000; display:none;
+width: 100%;
+height: 100%;
+left:0;
+top:0;/*FF IE7*/
+filter:alpha(opacity=90);/*IE*/
+opacity:0.9;/*FF*/
+z-index:999;
+position:fixed!important;/*FF IE7*/
+position:absolute;/*IE6*/
+_top:       expression(eval(document.compatMode &&
+            document.compatMode=='CSS1Compat') ?
+            documentElement.scrollTop + (document.documentElement.clientHeight-this.offsetHeight)/2 :/*IE6*/
+            document.body.scrollTop + (document.body.clientHeight - this.clientHeight)/2);
+}
+.popIframe {
+filter:alpha(opacity=0);/*IE*/
+opacity:0;/*FF*/
+}
+ 
+</style>
+
+</body>
+</html>
+	

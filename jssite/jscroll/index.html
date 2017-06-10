@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+	<meta charset="utf-8" />
+	<title>jscroll</title>
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.3/jquery.min.js"></script>
+	<script type="text/javascript" src="jscroll.js"></script>
+</head>
+<body>
+<div id="note" style="height:200px;width:200px;">
+	dsfsdfdsf<br />
+	dsfsdfdsf<br />
+	dsfsdfdsf<br />
+	dsfsdfdsf<br />
+	dsfsdfdsf<br />
+	dsfsdfdsf<br />
+	dsfsdfdsf<br />
+	dsfsdfdsf<br />
+	dsfsdfdsf<br />
+	dsfsdfdsf<br />
+	dsfsdfdsf<br />
+	dsfsdfdsf<br />
+	dsfsdfdsf<br />
+	dsfsdfdsf<br />
+	dsfsdfdsf<br />
+	dsfsdfdsf<br />
+	dsfsdfdsf<br />
+	dsfsdfdsf<br />
+	dsfsdfdsf<br />
+	dsfsdfdsf<br />
+	dsfsdfdsf<br />
+	dsfsdfdsf<br />
+	dsfsdfdsf<br />
+	dsfsdfdsf<br />
+	dsfsdfdsf<br />
+	dsfsdfdsf<br />
+	dsfsdfdsf<br />
+	dsfsdfdsf<br />
+	dsfsdfdsf<br />
+	dsfsdfdsf<br />
+	dsfsdfdsf<br />
+	dsfsdfdsf<br />
+	dsfsdfdsf<br />
+	dsfsdfdsf<br />
+	dsfsdfdsf<br />
+</div>
+<script>
+$("#note").jscroll({
+		W:"10px",
+		H:"30px",
+		BgUrl:"url(scrollbar.jpg)",
+		Bg:"0 0 repeat-y",
+		Bar:{
+			Bd:{Out:"",Hover:""},
+			Bg:{Out:"-10px 0 repeat-y",Hover:"-10px 0 repeat-y",Focus:"-10px 0 repeat-y"}
+		},
+		Btn:{
+			btn:false,
+			uBg:{Out:"0 0",Hover:"0 0",Focus:"0 0"},
+			dBg:{Out:"0 0",Hover:"0 0",Focus:"0 0"}
+		},
+		Fn:function(){}
+});
+</script>
+</body>
+</html>
+	
