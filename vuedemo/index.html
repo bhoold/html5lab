@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>template</title>
+    <link rel="stylesheet" type="text/css" href="/web-css-module/bootstrap-3.3.7/dist/css/bootstrap.min.css">
+    <script type="text/javascript" src="/web-js-module/vue-2.3.4/dist/vue.js"></script>
+  </head>
+  <body>
+ <div id="app">
+  {{ message }}
+</div>
+<div id="app-2">
+  <span v-bind:title="message">
+    鼠标悬停几秒钟查看此处动态绑定的提示信息！
+  </span>
+</div>
+
+
+
+
+<script type="text/javascript">
+var app = new Vue({
+  el: '#app',
+  data: {
+    message: 'Hello Vue!'
+  }
+})
+
+var app2 = new Vue({
+  el: '#app-2',
+  data: {
+    message: '页面加载于 ' + new Date()
+  }
+})
+
+
+</script>
+  </body>
+</html>
