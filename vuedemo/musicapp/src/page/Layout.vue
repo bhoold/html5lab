@@ -166,7 +166,7 @@ body {
         .time{
           float: right;
           padding-top: 12px;
-          height: 40px;
+          height: 2.5em;
           width: 80px;
           font-size: 12px;
           text-align: right;
@@ -175,9 +175,13 @@ body {
           float: left;
           width: 100%;
           height: 1px;
+          background-color: #f5f5f5;
+          border-radius: 4px;
+          box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
           overflow: initial;
           .progress-bar{
               position: relative;
+              float: left;
               a{
               position: absolute;
               right: -8px;
