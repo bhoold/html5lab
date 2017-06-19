@@ -291,7 +291,7 @@ body {
         .time{
           float: right;
           padding-top: 12px;
-          height: 2.5em;
+          height: 3em;
           width: 80px;
           font-size: 12px;
           text-align: right;
