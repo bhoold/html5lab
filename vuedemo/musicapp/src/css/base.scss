@@ -1,0 +1,15 @@
+*{
+    box-sizing: border-box;
+}
+html,body,#app{
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-size: 14px;
+  font-family: "Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif;
+}
+#main{
+  display: flex;
+  height: calc(100% - 30px - 60px);
+}
