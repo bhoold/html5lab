@@ -3,7 +3,7 @@
 import 'normalize.css'
 import '../src/font/iconfont.css'
 import Vue from 'vue'
-import Layout from './component/Layout'
+import layout from './components/layout'
 
 
 Vue.config.productionTip = false
@@ -11,5 +11,5 @@ Vue.config.productionTip = false
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
-  render: h => h(Layout)
+  render: h => h(layout)
 })
