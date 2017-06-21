@@ -2,10 +2,10 @@
 <div id="header" class="clearfix">
   <span class="title">音乐播放器</span>
   <div class="btns">
-    <a class="iconfont icon-close" title="关闭" v-on:click="close"></a>
-    <a class="iconfont icon-square" title="最大化" v-on:click="maximize" v-if="!isFullScreen && !isModal"></a>
-    <a class="iconfont icon-round" title="恢复" v-on:click="restore" v-else></a>
-    <a class="iconfont icon-move" title="最小化" v-on:click="minimize"></a>
+    <a class="iconfont icon-close" title="关闭" @click="close"></a>
+    <a class="iconfont icon-square" title="最大化" @click="maximize" v-if="!isFullScreen && !isModal"></a>
+    <a class="iconfont icon-round" title="恢复" @click="restore" v-else></a>
+    <a class="iconfont icon-move" title="最小化" @click="minimize"></a>
   </div>
 </div>
 </template>

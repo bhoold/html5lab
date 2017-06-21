@@ -1,5 +1,5 @@
 <template>
-  <div id="app" v-bind:class="{blur: isBlur, modal: isModal}">
+  <div id="app" :class="{blur: isBlur, modal: isModal}">
     <appHeader></appHeader>
     <div id="main">
       <appMenu></appMenu>

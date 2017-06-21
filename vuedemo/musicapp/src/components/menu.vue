@@ -1,7 +1,7 @@
 <template>
-      <div id="menu" v-bind:class="{simple: isSimple}">
+      <div id="menu" :class="{simple: isSimple}">
         <div class="panel">
-          <div class="panel-heading top"><a class="iconfont icon-sort" v-on:click="changeViewMode"></a></div>
+          <div class="panel-heading top"><a class="iconfont icon-sort" @click="changeViewMode"></a></div>
           <div class="panel-body">
             <a class="item"><i class="iconfont icon-search"></i><span>搜索</span></a>
             <a class="item"><i class="iconfont icon-searchlist"></i><span>发现音乐</span></a>
