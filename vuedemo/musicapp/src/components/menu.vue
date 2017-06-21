@@ -1,7 +1,7 @@
 <template>
-      <div id="menu">
+      <div id="menu" v-bind:class="{simple: isSimple}">
         <div class="panel">
-          <div class="panel-heading top"><a class="iconfont icon-sort" title=""></a></div>
+          <div class="panel-heading top"><a class="iconfont icon-sort" v-on:click="changeViewMode"></a></div>
           <div class="panel-body">
             <a class="item"><i class="iconfont icon-search"></i><span>搜索</span></a>
             <a class="item"><i class="iconfont icon-searchlist"></i><span>发现音乐</span></a>
@@ -39,12 +39,8 @@ export default {
   },
 
   methods: {
-    startHacking () {
-      this.$notify({
-        title: 'It Works',
-        message: 'We have laid the groundwork for you. Now it\'s your time to build something epic!',
-        duration: 6000
-      })
+    changeViewMode () {
+      this.isSimple = !this.isSimple
     }
   }
 }
