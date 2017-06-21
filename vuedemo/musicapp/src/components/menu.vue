@@ -1,7 +1,7 @@
 <template>
       <div id="menu">
         <div class="panel">
-          <div class="panel-heading top"><a class="iconfont icon-sort"></a></div>
+          <div class="panel-heading top"><a class="iconfont icon-sort" title=""></a></div>
           <div class="panel-body">
             <a class="item"><i class="iconfont icon-search"></i><span>搜索</span></a>
             <a class="item"><i class="iconfont icon-searchlist"></i><span>发现音乐</span></a>
@@ -34,7 +34,7 @@
 export default {
   data () {
     return {
-      msg: 'Use Vue 2.0 Today!'
+      isSimple: false
     }
   },
 

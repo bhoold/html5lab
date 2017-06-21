@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="app" v-bind:class="{blur: isBlur, modal: isModal}">
     <appHeader></appHeader>
     <div id="main">
       <appMenu></appMenu>
@@ -10,6 +10,8 @@
 </template>
   
 <script>
+import { mapState, mapGetters } from 'vuex'
+
 import appHeader from '../components/header'
 import appMenu from '../components/menu'
 import appcontent from '../components/content'
@@ -18,7 +20,7 @@ import playerMin from '../components/playerMin'
 export default {
   data () {
     return {
-      msg: 'Use Vue 2.0 Today!'
+
     }
   },
 
@@ -31,6 +33,44 @@ export default {
       })
     }
   },
+  computed: mapState([
+    'isBlur',
+    'isModal'
+  ]),
+
+/*
+  computed: mapState({
+    // 箭头函数可使代码更简练
+    count: state => state.count,
+
+    // 传字符串参数 'count' 等同于 `state => state.count`
+    countAlias: 'count',
+
+    // 为了能够使用 `this` 获取局部状态，必须使用常规函数
+    countPlusLocalState (state) {
+      return state.count + this.localCount
+    }
+  })
+*/
+/*
+computed: {
+  localComputed () {  },
+  // 使用对象展开运算符将此对象混入到外部对象中
+  ...mapState({
+    // ...
+  })
+}
+*/
+/*
+  {
+    isBlur(){
+      return this.$store.state.isBlur
+    },
+    isModal(){
+      return this.$store.state.isModal
+    }
+
+  },*/
   components: {
     appHeader,
     appMenu,
@@ -41,5 +81,26 @@ export default {
 </script>
 
 <style lang="scss">
+@import 'src/css/variable';
 
+#app{
+  position: relative;
+  height: 100%;
+  &.modal{
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width: 800px;
+    height: 600px;
+    transform: translate(-50%,-50%);
+    box-shadow: 0 0 0px 1px $headerBgColor;
+    &.blur{
+      box-shadow: 0 0 0px 1px $headerBgColorBlur;
+    }
+  }
+  #main{
+    display: flex;
+    height: calc(100% - 30px - 60px);
+  }
+}
 </style>

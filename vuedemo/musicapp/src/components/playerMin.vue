@@ -37,7 +37,7 @@
 export default {
   data () {
     return {
-      msg: 'Use Vue 2.0 Today!'
+
     }
   },
 
@@ -55,7 +55,7 @@ export default {
 
 <style lang="scss">
 #playerMin{
-  position: fixed;
+  position: absolute;
   bottom: 0;
   left: 0;
   right: 0;
@@ -66,8 +66,9 @@ export default {
       float: left;
       position: relative;
     width: 60px;
-    height: 60px;
+    height: 100%;
       img{
+        display: block;
         width: 100%;
         height: 100%;
       }
@@ -105,7 +106,7 @@ export default {
       height: 100%;
       .icons-btn{
           float: left;
-        padding: 20px 0;
+        padding-top: 20px;
         a{
           float: left;
           margin-right: 10px;
