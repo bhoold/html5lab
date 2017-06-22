@@ -5,10 +5,12 @@
 	    <!-- Additional required wrapper -->
 	    <div class="swiper-wrapper">
 	        <!-- Slides -->
-	        <div class="swiper-slide">Slide 1</div>
-	        <div class="swiper-slide">Slide 2</div>
-	        <div class="swiper-slide">Slide 3</div>
-	        ...
+	        <div class="swiper-slide"><img src="../images/banner1.jpg"></div>
+	        <div class="swiper-slide"><img src="../images/banner2.jpg"></div>
+	        <div class="swiper-slide"><img src="../images/banner3.jpg"></div>
+	        <div class="swiper-slide"><img src="../images/banner4.jpg"></div>
+	        <div class="swiper-slide"><img src="../images/banner5.jpg"></div>
+	        <div class="swiper-slide"><img src="../images/banner6.jpg"></div>
 	    </div>
 	    <!-- If we need pagination -->
 	    <div class="swiper-pagination"></div>
@@ -26,13 +28,6 @@
 <script>
 import Swiper from 'swiper'
 import 'swiper/dist/css/swiper.css'
-    
-var mySwiper = new Swiper ('.swiper-container', {
-  // Optional parameters
-  direction: 'vertical',
-  loop: true
-})
-
 
 export default {
   data () {
@@ -45,6 +40,9 @@ export default {
     startHacking () {
 
     }
+  },
+  mounted: function() {
+  	var swiper = new Swiper('.swiper-container');
   }
 }
 </script>
@@ -54,7 +52,7 @@ export default {
 
 }
 .swiper-container {
-    width: 600px;
-    height: 300px;
+    width: 730px;
+    height: 336px;
 }    
 </style>

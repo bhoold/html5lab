@@ -53,12 +53,14 @@ export default {
 
 <style lang="scss">
 #content{
+  position: relative;
   flex: 1;
   background: #fff;
   &>.page{
+    position: absolute;
+    width: 100%;
     height: 100%;
     padding: 2em;
-    overflow: auto;
     &>h1{
       margin: 0 0 1em;
       font-size: 14px;

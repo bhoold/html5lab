@@ -52,6 +52,8 @@ export default {
 
 <style lang="scss">
 #discover.page{
-
+	.content{
+		overflow: auto;
+	}
 }
 </style>
