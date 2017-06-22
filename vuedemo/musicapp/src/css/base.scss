@@ -8,16 +8,48 @@ body {
   margin: 0;
   font-size: 14px;
   font-family: "Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif;
+  background: url('../images/main-bg.png') no-repeat #5a83b7;
+  background-size: cover; 
 }
 *:before, 
 *:after{
     box-sizing: border-box;
 }
 .clearfix:before,
-.clearfix:after{
+.clearfix:after,
+.tab>.title:before,
+.tab>.title:after{
     content: " ";
     display: table;
 }
-.clearfix:after{
+.clearfix:after,
+.tab>.title:after{
     clear: both;
 }
+
+.tab{
+  &>.title{
+    border-bottom: 1px solid #ccc;
+    font-size: 15px;
+    &>.item{
+      position: relative;
+      float: left;
+      margin-right: 1.5em;
+      padding-bottom: .5em;
+      cursor: pointer;
+      &.active{
+        color: #c10909;
+        &:after{
+          content: '';
+          position: absolute;
+          left: 0;
+          bottom: -1px;
+          width: 100%;
+          height: 2px;
+          background: #c10909;
+        }
+      }
+    }
+  }
+}
+

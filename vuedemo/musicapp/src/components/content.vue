@@ -1,8 +1,25 @@
 <template>
-<div id="content"></div>
+<div id="content">
+<template v-if="currentPage=='search'"><search></search></template>
+<template v-else-if="currentPage=='discover'"><discover></discover></template>
+<template v-else-if="currentPage=='mv'"><mv></mv></template>
+<template v-else-if="currentPage=='local'"><local></local></template>
+<template v-else-if="currentPage=='download'"><download></download></template>
+<template v-else-if="currentPage=='favorite'"><favorite></favorite></template>
+</div>
 </template>
 
 <script>
+import search from '../pages/search'
+import discover from '../pages/discover'
+import mv from '../pages/mv'
+import local from '../pages/local'
+import download from '../pages/download'
+import favorite from '../pages/favorite'
+
+
+import { mapState } from 'vuex'
+
 export default {
   data () {
     return {
@@ -12,12 +29,24 @@ export default {
 
   methods: {
     startHacking () {
-      this.$notify({
-        title: 'It Works',
-        message: 'We have laid the groundwork for you. Now it\'s your time to build something epic!',
-        duration: 6000
-      })
+
     }
+  },
+  computed: {
+    ...mapState([
+      'currentPage',
+    ])
+  },
+  created: function() {
+
+  },
+  components: {
+    search,
+    discover,
+    mv,
+    local,
+    download,
+    favorite
   }
 }
 </script>
@@ -26,5 +55,15 @@ export default {
 #content{
   flex: 1;
   background: #fff;
+  &>.page{
+    height: 100%;
+    padding: 2em;
+    overflow: auto;
+    &>h1{
+      margin: 0 0 1em;
+      font-size: 14px;
+      color: #999;
+    }
+  }
 }
 </style>

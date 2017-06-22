@@ -93,10 +93,7 @@ computed: {
     width: 800px;
     height: 600px;
     transform: translate(-50%,-50%);
-    box-shadow: 0 0 0px 1px $headerBgColor;
-    &.blur{
-      box-shadow: 0 0 0px 1px $headerBgColorBlur;
-    }
+    box-shadow: 0px 0px 5px 1px rgba(0,0,0,0.5);
   }
   #main{
     display: flex;
