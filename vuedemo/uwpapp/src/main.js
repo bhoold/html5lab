@@ -1,11 +1,13 @@
 import Vue from 'vue'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-default/index.css'
-import Main from './Main.vue'
+import '../src/font/iconfont.css'
+
+import Layout from './page/Layout.vue'
 
 Vue.use(ElementUI)
 
 new Vue({
   el: '#app',
-  render: h => h(Main)
+  render: h => h(Layout)
 })
