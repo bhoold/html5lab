@@ -62,6 +62,7 @@ export default {
   height: 60px;
   border-top: 1px solid #d3d3d8;
   background: #fff;
+  z-index: 99;
     .avatar{
       float: left;
       position: relative;

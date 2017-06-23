@@ -53,6 +53,8 @@ export default {
 <style lang="scss">
 #discover.page{
 	.content{
+    	margin: 0 -2em;
+        padding: 0 2em;
 		overflow: auto;
 	}
 }
