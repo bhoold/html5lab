@@ -1,6 +1,6 @@
 # musicapp
 
-> A Vue.js project
+> A Vue.js project. vue + vuex + jquery + iscroll + swiper
 
 ## Build Setup
 
