@@ -7,6 +7,8 @@ const os = require('os');
 const fs = require('fs');
 const osPath = require('path');
 const querystring = require('querystring');
+const jschardet = require("jschardet")
+
 
 
 const isTTY = Boolean(process.stdout.isTTY); //命令行模式
@@ -31,19 +33,40 @@ app.all('*', async (req, res)=>{
 	}
 	path = path.split('/').join(sep);
 	path = devPath + path;
-	var str = '<p>当前目录: ' + path + '</p>';
-	await readDir(path).then((res)=>{
+	var state = {};
+	await stat(path).then((res)=>{
 		if(res.state){
-			files = res.data;
+			state = res.data;
 		}else{
 			console.log(res.data)
 		}
 	});
-	str += '<table>';
-	await each(files, path).then((res)=>{
-		str += res;
-	});
-	str += '</table>';
+	
+	if(state.isDirectory && state.isDirectory()){console.log('目录')
+		var str = '<p>当前目录: ' + path + '</p>'
+		str += '<table>';
+		await readDir(path).then((res)=>{
+			if(res.state){
+				files = res.data;
+			}else{
+				console.log(res.data)
+			}
+		});
+		await each(files, path).then((res)=>{
+			str += res;
+		});
+		str += '</table>';
+	}else{
+		await readFile(path).then((res)=>{
+			if(res.state){
+				str = res.data;
+				console.log(str)
+			}else{
+				console.log(res.data)
+			}
+		});
+	}
+	
 	res.send(str);
 });
 
@@ -102,6 +125,17 @@ function readDir(path){
 				resolve({state:0, data: err});
 			else
 				resolve({state:1, data: files});
+		});
+	});
+}
+
+function readFile(path){
+	return new Promise((resolve, reject)=>{
+		fs.readFile(path, 'utf-8', (err,text)=>{
+			if(err)
+				resolve({state:0, data: err});
+			else
+				resolve({state:1, data: text});
 		});
 	});
 }
