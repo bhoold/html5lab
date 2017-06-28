@@ -1,29 +1,32 @@
+const MO = {
+	// 模块
+	os: require('os'),
+	fs: require('fs'),
+	path: require('path'),
+	querystring: require('querystring'),
+	jschardet: require("jschardet"),
+
+	//文件
+	conf: require('./config'),
+	env: {}
+}
+MO.env = {
+	isTTY: Boolean(process.stdout.isTTY),
+	sep: MO.path.sep
+}
+
+
+
+
+
+
 var express = require('express');
 var app = express();
 
 
 
-const os = require('os');
-const fs = require('fs');
-const osPath = require('path');
-const querystring = require('querystring');
-const jschardet = require("jschardet")
-
-
-
-const isTTY = Boolean(process.stdout.isTTY); //命令行模式
-const currentFilePath = __filename; //当前文件绝对地址
-const currentPath = __dirname;	//当前路径
-const sep = osPath.sep; //路径分隔符
-
-const outputPath = currentPath + sep + 'dist'; //打包文件目录
-const devPath = currentPath + sep + 'src'; //开发文件目录
-
-
-
 app.all('*', async (req, res)=>{
-	let path = req.path,
-		files = [];
+	let path = req.path;
 	if(path.indexOf('.ico') > -1){ //不处理favicon.ico图标
 		res.send();
 		return 0;
@@ -31,24 +34,33 @@ app.all('*', async (req, res)=>{
 	if(path.lastIndexOf('/') == path.length - 1){ //最后一位不能为sep分隔符
 		path = path.substring(0, path.length - 1)
 	}
-	path = path.split('/').join(sep);
-	path = devPath + path;
-	var state = {};
+	path = path.split('/').join(MO.env.sep);
+	path =  MO.conf.devPath + path;
+
+	var errorMsg = {};
+	var files = [], 
+		state = {},
+		str = '';
+
 	await stat(path).then((res)=>{
 		if(res.state){
 			state = res.data;
 		}else{
+			errorMsg.code = 1;
+			errorMsg.msg = res.data.path;
 			console.log(res.data)
 		}
 	});
 	
-	if(state.isDirectory && state.isDirectory()){console.log('目录')
-		var str = '<p>当前目录: ' + path + '</p>'
+	if(state.isDirectory && state.isDirectory()){
+		str = '<p>当前目录: ' + path + '</p>'
 		str += '<table>';
 		await readDir(path).then((res)=>{
 			if(res.state){
 				files = res.data;
 			}else{
+				errorMsg.code = 2;
+				errorMsg.msg = res.data.path;
 				console.log(res.data)
 			}
 		});
@@ -60,13 +72,14 @@ app.all('*', async (req, res)=>{
 		await readFile(path).then((res)=>{
 			if(res.state){
 				str = res.data;
-				console.log(str)
 			}else{
+				errorMsg.code = 3;
+				errorMsg.msg = res.data.path;
 				console.log(res.data)
 			}
 		});
 	}
-	
+	if(errorMsg.code)str = '错误号' + errorMsg.code + ':' + errorMsg.msg;
 	res.send(str);
 });
 
@@ -82,12 +95,14 @@ function each(files, currentPath) {
 			resolve('');
 		}
 		files.forEach(async (item)=>{
-			let path = currentPath + sep + item,
+			let path = MO.conf.devPath + MO.env.sep + item,
 				state = {};
 			await stat(path).then((res)=>{
 				if(res.state){
 					state = res.data;
 				}else{
+					errorMsg.code = 1;
+					errorMsg.msg = res.data.path;
 					console.log(res.data)
 				}
 
@@ -109,7 +124,9 @@ function each(files, currentPath) {
 
 function stat(path){
 	return new Promise((resolve, reject)=>{
-		fs.stat(path,(err,stat)=>{
+		console.log('stat:-------------')
+		console.log(path)
+		MO.fs.stat(path,(err,stat)=>{
 			if(err)
 				resolve({state:0, data: err});
 			else
@@ -120,7 +137,7 @@ function stat(path){
 
 function readDir(path){
 	return new Promise((resolve, reject)=>{
-		fs.readdir(path,(err,files)=>{
+		MO.fs.readdir(path,(err,files)=>{
 			if(err)
 				resolve({state:0, data: err});
 			else
@@ -131,7 +148,7 @@ function readDir(path){
 
 function readFile(path){
 	return new Promise((resolve, reject)=>{
-		fs.readFile(path, 'utf-8', (err,text)=>{
+		MO.fs.readFile(path, 'utf-8', (err,text)=>{
 			if(err)
 				resolve({state:0, data: err});
 			else
@@ -142,27 +159,7 @@ function readFile(path){
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-var server = app.listen(80, function () {
+var server = app.listen(MO.conf.port, function () {
   var host = server.address().address;
   var port = server.address().port;
 
