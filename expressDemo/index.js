@@ -26,7 +26,8 @@ var app = express();
 
 
 app.all('*', async (req, res)=>{
-	let path = req.path;
+	let urlPath = req.path,
+		path = req.path;
 	if(path.indexOf('.ico') > -1){ //不处理favicon.ico图标
 		res.send();
 		return 0;
@@ -64,7 +65,7 @@ app.all('*', async (req, res)=>{
 				console.log(res.data)
 			}
 		});
-		await each(files, path, req.path + MO.env.sep).then((res)=>{
+		await each(files, path, urlPath=='/'?urlPath:urlPath+'/').then((res)=>{
 			str += res;
 		});
 		
