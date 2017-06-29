@@ -18,7 +18,7 @@ MO.env = {
 
 
 
-
+var errorMsg = {};
 
 var express = require('express');
 var app = express();
@@ -37,7 +37,7 @@ app.all('*', async (req, res)=>{
 	path = path.split('/').join(MO.env.sep);
 	path =  MO.conf.devPath + path;
 
-	var errorMsg = {};
+
 	var files = [], 
 		state = {},
 		str = '';
@@ -51,9 +51,9 @@ app.all('*', async (req, res)=>{
 			console.log(res.data)
 		}
 	});
-	
+
 	if(state.isDirectory && state.isDirectory()){
-		str = '<p>当前目录: ' + path + '</p>'
+		str = '<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8"><title></title></head><body><p>当前目录: ' + path + '</p>'
 		str += '<table>';
 		await readDir(path).then((res)=>{
 			if(res.state){
@@ -64,10 +64,11 @@ app.all('*', async (req, res)=>{
 				console.log(res.data)
 			}
 		});
-		await each(files, path).then((res)=>{
+		await each(files, path, req.path + MO.env.sep).then((res)=>{
 			str += res;
 		});
-		str += '</table>';
+		
+		str += '</table></body></html>';
 	}else{
 		await readFile(path).then((res)=>{
 			if(res.state){
@@ -79,6 +80,7 @@ app.all('*', async (req, res)=>{
 			}
 		});
 	}
+	
 	if(errorMsg.code)str = '错误号' + errorMsg.code + ':' + errorMsg.msg;
 	res.send(str);
 });
@@ -87,7 +89,7 @@ app.all('*', async (req, res)=>{
 
 
 
-function each(files, currentPath) {
+function each(files, currentPath, reqPath) {
 	return new Promise((resolve, reject)=>{
 		var i = 0, 
 			str = '';
@@ -95,7 +97,7 @@ function each(files, currentPath) {
 			resolve('');
 		}
 		files.forEach(async (item)=>{
-			let path = MO.conf.devPath + MO.env.sep + item,
+			let path = currentPath + MO.env.sep + item,
 				state = {};
 			await stat(path).then((res)=>{
 				if(res.state){
@@ -112,7 +114,7 @@ function each(files, currentPath) {
 				str += '<td>[目录]</td>';
 			else
 				str += '<td>[文件]</td>';
-			str += '<td><a href="' + item + '">' + item + '</a></td>';
+			str += '<td><a href="' + reqPath + item + '">' + item + '</a></td>';
 			str += '</tr>';
 			i++;
 			if(files.length == i){
@@ -124,8 +126,6 @@ function each(files, currentPath) {
 
 function stat(path){
 	return new Promise((resolve, reject)=>{
-		console.log('stat:-------------')
-		console.log(path)
 		MO.fs.stat(path,(err,stat)=>{
 			if(err)
 				resolve({state:0, data: err});
