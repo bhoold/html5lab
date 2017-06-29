@@ -26,8 +26,9 @@ var app = express();
 
 
 app.all('*', async (req, res)=>{
-	let urlPath = req.path,
-		path = req.path;
+	let urlPath = decodeURI(req.path),
+		path = urlPath;
+
 	if(path.indexOf('.ico') > -1){ //不处理favicon.ico图标
 		res.send();
 		return 0;
