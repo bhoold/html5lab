@@ -1,0 +1,369 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title></title>
+  <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+ </head>
+ <body>
+ 	<div class="container flowers">
+		<div class="circle">
+			<div class="center"></div>
+		</div>
+ 	</div>
+ 	<div class="container armRing">
+		<div class="circle">
+			<div class="center"></div>
+		</div>
+ 	</div>
+<script type="text/javascript">
+(function() {
+	let number = 10, //小圆数量
+		currentIndex = number/2; //当前小圆
+		bwidth = 1000, //大圆宽度
+		sWidth = 150, //小圆宽度
+		origin = { //坐标原点
+			x: 0,
+			y: 0
+		},
+		firstPoint = { //第一个圆位置
+			x: -bwidth/2,
+			y: 0
+		},
+		currentPoint = { //要设置的园位置
+			x: 0,
+			y: 0
+		},
+		angle = 20; //旋转角度
+
+	for(let i = 0; i < number; i++){
+		$('.flowers .center').append(`<div class="img"><img src="images/flowers/${i+1}.jpg" ><span>我是文字${i+1}</span></div>`);
+	}
+
+	$('.flowers .circle').css({
+		width: bwidth,
+		height: bwidth
+	})
+	$('.flowers .img').css({
+		marginTop: 0-sWidth/2,
+		marginLeft: 0-sWidth/2,
+		width: sWidth,
+		height: sWidth
+	})
+	$('.flowers .img').each(function(i){
+		let index = Math.abs(i - currentIndex);
+		let newAngle = (index * angle)*(Math.PI / 180),
+			scale = 1 - index * 0.2;
+			opacity = scale;
+		if(i - currentIndex < 0){
+			newAngle = 0 - newAngle;
+		}
+		if(scale < 0.6){
+			scale = 0.4;
+			opacity = 0;
+		}
+		currentPoint.x = (firstPoint.x - origin.x)*Math.cos(newAngle) - (firstPoint.y - origin.y)*Math.sin(newAngle) + origin.x;
+		currentPoint.y = (firstPoint.x - origin.y)*Math.sin(newAngle) + (firstPoint.y - origin.y)*Math.cos(newAngle) + origin.y;
+		$(this).css({
+			left: Math.round(currentPoint.x),
+			top: Math.round(currentPoint.y),
+		    transform: `scale(${scale})`,
+			opacity: opacity
+		})
+
+		$(this).click(function(){
+			let index = Math.abs(i - currentIndex);
+			let bigAngle = 0 - index * angle;
+			if(i - currentIndex < 0){
+				bigAngle = 0 - bigAngle;
+			}
+			$('.flowers .circle').css({
+				transform: `rotate(${bigAngle}deg)`
+			});
+
+
+			$('.flowers .img').each(function(i2){
+				let index = Math.abs(i2 - i);
+				let newAngle = (index * angle)*(Math.PI / 180),
+					scale = 1 - index * 0.2;
+					opacity = scale;
+				if(i2 - i < 0){
+					newAngle = 0 - newAngle;
+				}
+				if(scale < 0.6){
+					scale = 0.4;
+					opacity = 0;
+				}
+				$(this).css({
+				    transform: `rotate(${0 - bigAngle}deg) scale(${scale})`,
+					opacity: opacity
+				})
+			})
+
+		})
+	})
+})();
+
+
+/*
+(function() {
+	let number = 6, //小圆数量
+		currentIndex = number/2; //当前小圆
+		bwidth = 1000, //大圆宽度
+		sWidth = 150, //小圆宽度
+		origin = { //坐标原点
+			x: 0,
+			y: 0
+		},
+		firstPoint = { //第一个圆位置
+			x: -bwidth/2,
+			y: 0
+		},
+		currentPoint = { //要设置的园位置
+			x: 0,
+			y: 0
+		},
+		angle = 20; //旋转角度
+
+	for(let i = 0; i < number; i++){
+		$('.armRing .center').append(`<div class="img"><img src="images/armRing/${i+1}.jpg" ><span>我是文字${i+1}</span></div>`);
+	}
+
+	$('.armRing .circle').css({
+		width: bwidth,
+		height: bwidth
+	})
+	$('.armRing .img').css({
+		marginTop: 0-sWidth/2,
+		marginLeft: 0-sWidth/2,
+		width: sWidth,
+		height: sWidth
+	})
+	$('.armRing .img').each(function(i){
+		let index = Math.abs(i - currentIndex);
+		let newAngle = (index * angle)*(Math.PI / 180),
+			scale = 1 - index * 0.2;
+			opacity = scale;
+		if(i - currentIndex < 0){
+			newAngle = 0 - newAngle;
+		}
+		if(scale < 0.6){
+			scale = 0.4;
+			opacity = 0;
+		}
+		currentPoint.x = (firstPoint.x - origin.x)*Math.cos(newAngle) - (firstPoint.y - origin.y)*Math.sin(newAngle) + origin.x;
+		currentPoint.y = (firstPoint.x - origin.y)*Math.sin(newAngle) + (firstPoint.y - origin.y)*Math.cos(newAngle) + origin.y;
+		$(this).css({
+			left: Math.round(currentPoint.x),
+			top: Math.round(currentPoint.y),
+		    transform: `scale(${scale})`,
+			opacity: opacity
+		})
+
+		$(this).click(function(){
+			let index = Math.abs(i - currentIndex);
+			let bigAngle = 0 - index * angle;
+			if(i - currentIndex < 0){
+				bigAngle = 0 - bigAngle;
+			}
+			$('.armRing .circle').css({
+				transform: `rotate(${bigAngle}deg)`
+			});
+
+
+			$('.armRing .img').each(function(i2){
+				let index = Math.abs(i2 - i);
+				let newAngle = (index * angle)*(Math.PI / 180),
+					scale = 1 - index * 0.2;
+					opacity = scale;
+				if(i2 - i < 0){
+					newAngle = 0 - newAngle;
+				}
+				if(scale < 0.6){
+					scale = 0.4;
+					opacity = 0;
+				}
+				$(this).css({
+				    transform: `rotate(${0 - bigAngle}deg) scale(${scale})`,
+					opacity: opacity
+				})
+			})
+
+		})
+	})
+})();
+*/
+
+
+
+
+
+
+
+
+(function() {
+	let number = 6, //戒臂数量
+		currentIndex = number/2; //当前小圆
+		bwidth = 1000, //大圆宽度
+		sWidth = 150, //小圆宽度
+		origin = { //坐标原点
+			x: 0,
+			y: 0
+		},
+		firstPoint = { //第一个圆位置
+			x: bwidth/2,
+			y: 0
+		},
+		currentPoint = { //要设置的园位置
+			x: 0,
+			y: 0
+		},
+		angle = 20; //旋转角度
+
+
+	for(let i = 0; i < number; i++){
+		$('.armRing .center').append(`<div class="img"><img src="images/armRing/${i+1}.jpg" ><span>我是文字${i+1}</span></div>`);
+	}
+
+
+	$('.armRing .circle').css({
+		width: bwidth,
+		height: bwidth
+	})
+	$('.armRing .img').css({
+		marginTop: 0-sWidth/2,
+		marginLeft: 0-sWidth/2,
+		width: sWidth,
+		height: sWidth
+	})
+	$('.armRing .img').each(function(i){
+		let index = Math.abs(i - currentIndex);
+		let newAngle = (index * angle)*(Math.PI / 180),
+			scale = 1 - index * 0.2;
+			opacity = scale;
+		if(i - currentIndex < 0){
+			newAngle = 0 - newAngle;
+		}
+		if(scale < 0.6){
+			scale = 0.4;
+			opacity = 0;
+		}
+
+		currentPoint.x = (firstPoint.x - origin.x)*Math.cos(newAngle) - (firstPoint.y - origin.y)*Math.sin(newAngle) + origin.x;
+		currentPoint.y = (firstPoint.x - origin.y)*Math.sin(newAngle) + (firstPoint.y - origin.y)*Math.cos(newAngle) + origin.y;
+		$(this).css({
+			left: Math.round(currentPoint.x),
+			top: Math.round(currentPoint.y),
+		    transform: `scale(${scale})`,
+			opacity: opacity
+		})
+
+		$(this).click(function(){
+			let index = Math.abs(i - currentIndex);
+			let bigAngle = 0 - index * angle;
+			if(i - currentIndex < 0){
+				bigAngle = 0 - bigAngle;
+			}
+			$('.armRing .circle').css({
+				transform: `rotate(${bigAngle}deg)`
+			});
+
+
+			$('.armRing .img').each(function(i2){
+				let index = Math.abs(i2 - i);
+				let newAngle = (index * angle)*(Math.PI / 180),
+					scale = 1 - index * 0.2;
+					opacity = scale;
+				if(i2 - i < 0){
+					newAngle = 0 - newAngle;
+				}
+				if(scale < 0.6){
+					scale = 0.4;
+					opacity = 0;
+				}
+				$(this).css({
+				    transform: `rotate(${0 - bigAngle}deg) scale(${scale})`,
+					opacity: opacity
+				})
+			})
+
+		})
+	})
+})();
+</script>
+<style type="text/css">
+	*{
+		margin: 0;
+		padding: 0;
+	}
+	html,body{
+		height: 100%;
+	}
+	.container{
+		display: inline-block;
+		width: 300px;
+		box-sizing: border-box;
+		overflow: hidden;
+	}
+	.flowers{
+		position: absolute;
+		top: 0;
+		left: 0;
+		bottom: 0
+	}
+	.armRing{
+		position: absolute;
+		top: 0;
+		right: 0;
+		bottom: 0
+	}
+	.circle{
+		position: relative;
+	    margin: -120px 70px;
+		border: 1px solid #fff;
+	    border-radius: 50%;
+	    box-sizing: border-box;
+	    transform: translate(0, 0);
+	    transition: all .5s;
+	}
+	.armRing .circle{
+		margin-left: -800px;
+	}
+	.center{
+		position: absolute;
+		left: 50%;
+		top: 50%;
+		margin-left: -1px;
+		margin-top: -1px;
+		width: 2px;
+		height: 2px;
+		border: 1px solid red;
+	    border-radius: 50%;
+	    box-sizing: border-box;
+	}
+	.img{
+		position: absolute;
+		top: 0;
+		left: 0;
+		border: 1px solid #fff;
+		border-radius: 50%;
+		background: #ccc;
+		text-align: center;
+		transition: all .5s;
+	    box-sizing: border-box;
+	}
+	.img img{
+		width: 100%;
+		height: 100%;
+	}
+	.img span{
+		display: block;
+		margin-top: -1em;
+	}
+</style>
+ </body>
+</html>
