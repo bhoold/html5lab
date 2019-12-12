@@ -1,0 +1,122 @@
+* {
+	margin: 0;
+	padding: 0;
+}
+div {
+	box-sizing: border-box;
+}
+
+html, body {
+	height: 100%;
+	font-size: 14px;
+}
+
+table {
+	border-collapse: collapse;
+	text-align: left;
+}
+table td, 
+table th {
+	padding: 0 5px;
+	border: 1px solid #cad9ea;
+	color: #666;
+	height: 30px;
+}
+table thead th {
+	background-color: #CCE8EB;
+	width: 100px;
+}
+table tr:nth-child(odd) {
+	background: #fff;
+}
+table tr:nth-child(even){
+	background: #F5FAFA;
+}
+table i {
+	font-style: normal;
+	cursor: pointer;
+}
+
+.hide {
+	display: none;
+}
+.show {
+	display: block;
+}
+
+#layout {
+	min-width: 100%;
+	min-height: 100%;
+}
+
+#charts {
+    position: fixed;
+    width: 230px;
+    height: 100%;
+	background: #F5FAFA;
+}
+#charts img {
+	width: 80px;
+	height: 60px;
+}
+
+#stage {
+    margin: 0 300px 0 230px;
+	display: flex;
+	flex-flow: column;
+    padding: 1em;
+    min-height: 500px;
+}
+#top .tip {
+	display: inline-block;
+	margin-left: 1em;
+}
+
+#container {
+    display: flex;
+    flex-wrap: wrap;
+	flex: 1;
+}
+#container.hover {
+	background: #F5FAFA;
+}
+#container .wrap-item {
+	display: flex;
+	flex-direction: column;
+    margin: 1em;
+}
+#container .wrap-item.line {
+    width: 600px;
+    height: 400px;
+}
+#container .wrap-item.pivot .title {
+    display: none;
+}
+#container .wrap-item .body {
+    flex: 1;
+}
+
+#property {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 300px;
+    height: 100%;
+	background: #F5FAFA;
+}
+#property .prop-item .title {
+	margin-bottom: 1em;
+	font-size: 16px;
+}
+#property .prop-item .title .tip {
+	font-size: 12px;
+}
+#property .form-item {
+	margin-bottom: 2em;
+}
+#property .form-item .label {
+	margin-bottom: 5px;
+}
+#property .form-item select {
+	width: 100%;
+}

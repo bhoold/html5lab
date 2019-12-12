@@ -1,0 +1,483 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+	<meta charset="utf-8">
+	<title></title>
+
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link rel="stylesheet" href="style.css">
+
+	<script src="echarts.min.js"></script>
+	<script src="jquery-3.3.1.min.js"></script>
+	<script src="main.js"></script>
+<script>
+/*
+$.ajax({
+	url: './Cars.csv'
+}).done(function(res) {
+	isUpdated = true;
+	analyzingUpdateData(res)
+	showDomLayout();
+});*/
+</script>
+</head>
+<body>
+	<div id="layout">
+		<div id="charts" class="hide">
+			<div class="title">图表库</div>
+			<div class="item" data-type="line">
+				<img src="https://www.echartsjs.com/examples/data/thumb/line-simple.jpg" alt="折线图">
+				<p>折线图</p>
+			</div>
+			<div class="item" data-type="bar">
+				<img src="https://www.echartsjs.com/examples/data/thumb/bar-tick-align.jpg" alt="柱状图">
+				<p>柱状图</p>
+			</div>
+			<div class="item" data-type="pie">
+				<img src="https://www.echartsjs.com/examples/data/thumb/pie-doughnut.jpg" alt="饼图">
+				<p>饼图</p>
+			</div>
+			<div class="item" data-type="pivot">
+				<img src="https://www.echartsjs.com/examples/data/thumb/pictorialBar-dotted.jpg" alt="透视表">
+				<p>透视表</p>
+			</div>
+		</div>
+		<div id="stage">
+			<input type="file" id="file-upload">
+			<span id="upload-state"></span>
+			<div id="container"></div>
+		</div>
+		<div id="property" class="hide">
+			<div class="prop-item pivot hide">
+				<div class="title">
+					<span>属性</span>
+					<p class="tip">按住ctrl或者command多选</p>
+				</div>
+				<div class="body">
+					<div class="form-item optx">
+						<div class="label">行字段</div>
+						<select name="colSel" id="colSel" multiple="multiple">
+							<option value="">请选择</option>
+						</select>
+					</div>
+					<div class="form-item opty">
+						<div class="label">数据字段</div>
+						<select name="dataSel" id="dataSel" multiple="multiple">
+							<option value="">请选择</option>
+						</select>
+					</div>
+				</div>
+			</div>
+			<div class="prop-item line hide">
+				<div class="title">
+					<span>属性</span>
+					<p class="tip"></p>
+				</div>
+				<div class="body">
+					<div class="form-item title">
+						<div class="label">标题</div>
+						<input type="text">
+					</div>
+					<div class="form-item optx">
+						<div class="label">x轴数据</div>
+						<select>
+							<option value="">请选择</option>
+						</select>
+					</div>
+					<div class="form-item opty">
+						<div class="label">y轴数据</div>
+						<select>
+							<option value="">请选择</option>
+						</select>
+					</div>
+				</div>
+			</div>
+			<div class="prop-item bar hide">
+				<div class="title">
+					<span>属性</span>
+					<p class="tip"></p>
+				</div>
+				<div class="body">
+					<div class="form-item title">
+						<div class="label">标题</div>
+						<input type="text">
+					</div>
+					<div class="form-item optx">
+						<div class="label">x轴数据</div>
+						<select>
+							<option value="">请选择</option>
+						</select>
+					</div>
+					<div class="form-item opty">
+						<div class="label">y轴数据</div>
+						<select>
+							<option value="">请选择</option>
+						</select>
+					</div>
+				</div>
+			</div>
+			<div class="prop-item pie hide">
+				<div class="title">
+					<span>属性</span>
+					<p class="tip"></p>
+				</div>
+				<div class="body">
+					<div class="form-item title">
+						<div class="label">标题</div>
+						<input type="text">
+					</div>
+					<div class="form-item optx">
+						<div class="label">x轴数据</div>
+						<select>
+							<option value="">请选择</option>
+						</select>
+					</div>
+					<div class="form-item opty">
+						<div class="label">y轴数据</div>
+						<select>
+							<option value="">请选择</option>
+						</select>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+<script>
+
+// 绑定拖动事件
+$(document).on('mousedown', '#charts .item', function(e) {
+	dragstart = true;
+	startX = e.pageX;
+	startY = e.pageY;
+
+	var x = startX-w/2,
+		y = startY-h/2;
+	$dargImg = $('<div data-type="'+$(this).data('type')+'" style="position:absolute;width:'+w+'px;height:'+h+'px;left:'+x+'px;top:'+y+'px;background:url(' + $(this).find('img').attr('src') + ');background-size: cover;"/>');
+	$dargImg.appendTo($('body'));
+
+	$(document).on('mousemove', moveDargImg).on('mouseup', freeDargImg);
+});
+
+
+// 绑定上传事件
+$('#file-upload').on('change', function() {
+	var reader = new FileReader();
+	var file = this.files[0];
+	var uploadState = '';
+	
+	if(file && /\.csv/gi.test(file.name)) {
+		isUpdated = true;
+		reader.readAsText(file);
+		reader.onload = analyzingUpdateData;
+		showDomLayout();
+	} else {
+		uploadState = '未能解析文件';
+	}
+	
+	$('#upload-state').text(uploadState);
+});
+
+
+// 显示右侧内容
+$('#container').on('click', '.wrap-item', function() {
+	var chartId = $(this).data('id');
+	if(chartsData.list[chartId] === undefined) {
+		return;
+	}
+
+	var $wrap,
+		$title,
+		$optx,
+		$opty;
+	var chartData = chartsData.list[chartId];
+
+	$('#property').removeClass('hide');
+	if($(this).hasClass('line')) {
+		$wrap = $('#property .prop-item.line');
+	} else if($(this).hasClass('bar')) {
+		$wrap = $('#property .prop-item.bar');
+	} else if($(this).hasClass('pie')) {
+		$wrap = $('#property .prop-item.pie');
+	} else if($(this).hasClass('pivot')) {
+		$wrap = $('#property .prop-item.pivot');
+	}
+
+	if(!($wrap.length && chartData)) {
+		return
+	}
+
+	selectOpts.activeChartId = chartData.id;
+
+	$wrap.removeClass('hide').siblings().addClass('hide');
+	
+	$title = $wrap.find('.form-item.title input');
+	$optx = $wrap.find('.form-item.optx select');
+	$opty = $wrap.find('.form-item.opty select');
+	
+	if($title.length) {
+		$title.val(chartData.title);
+	}
+
+	$optx.empty();
+	sourceTableData.textCol.forEach(function(col) {
+		var selected = '';
+		if(Array.isArray(chartData.xselected)) {
+			chartData.xselected.some(function(value) {
+				if(col == value) {
+					selected = 'selected';
+				}
+				return col == value;
+			});
+		} else {
+			if(col == chartData.xselected) {
+				selected = 'selected';
+			}
+		}
+		var $option = $('<option '+selected+' value="' + col + '">' + col + '</option>');
+		$optx.append($option);
+	});
+
+	$opty.empty();
+	sourceTableData.numCol.forEach(function(col) {
+		var selected = '';
+		if(Array.isArray(chartData.yselected)) {
+			chartData.yselected.some(function(value) {
+				if(col == value) {
+					selected = 'selected';
+				}
+				return col == value;
+			});
+		} else {
+			if(col == chartData.yselected) {
+				selected = 'selected';
+			}
+		}
+		var $option = $('<option '+selected+' value="' + col + '">' + col + '</option>');
+		$opty.append($option);
+	});
+});
+
+
+// 属性标题
+$('#property').on('input', '.form-item.title input', function() {
+	var value = $(this).val();
+	var chartData = chartsData.list[selectOpts.activeChartId];
+
+	if(chartData === undefined) {
+		return;
+	}
+
+	chartData.title = value;
+
+	updataChart(selectOpts.activeChartId);
+});
+
+// 折线选择
+$('#property').on('change', '.prop-item.line .form-item.optx select', function() {
+	var value = $(this).val();
+	var chartData = chartsData.list[selectOpts.activeChartId];
+
+	if(chartData === undefined) {
+		return;
+	}
+
+	chartData.xselected = value;
+
+	updataChart(selectOpts.activeChartId);
+});
+$('#property').on('change', '.prop-item.line .form-item.opty select', function() {
+	var value = $(this).val();
+	var chartData = chartsData.list[selectOpts.activeChartId];
+
+	if(chartData === undefined) {
+		return;
+	}
+
+	chartData.yselected = value;
+
+	updataChart(selectOpts.activeChartId);
+});
+
+// 柱状选择
+$('#property').on('change', '.prop-item.bar .form-item.optx select', function() {
+	var value = $(this).val();
+	var chartData = chartsData.list[selectOpts.activeChartId];
+
+	if(chartData === undefined) {
+		return;
+	}
+
+	chartData.xselected = value;
+
+	updataChart(selectOpts.activeChartId);
+});
+$('#property').on('change', '.prop-item.bar .form-item.opty select', function() {
+	var value = $(this).val();
+	var chartData = chartsData.list[selectOpts.activeChartId];
+
+	if(chartData === undefined) {
+		return;
+	}
+
+	chartData.yselected = value;
+
+	updataChart(selectOpts.activeChartId);
+});
+
+// 饼图选择
+$('#property').on('change', '.prop-item.pie .form-item.optx select', function() {
+	var value = $(this).val();
+	var chartData = chartsData.list[selectOpts.activeChartId];
+
+	if(chartData === undefined) {
+		return;
+	}
+
+	chartData.xselected = value;
+
+	updataChart(selectOpts.activeChartId);
+});
+$('#property').on('change', '.prop-item.pie .form-item.opty select', function() {
+	var value = $(this).val();
+	var chartData = chartsData.list[selectOpts.activeChartId];
+
+	if(chartData === undefined) {
+		return;
+	}
+
+	chartData.yselected = value;
+
+	updataChart(selectOpts.activeChartId);
+});
+
+// 透视选择
+$('#property').on('change', '.prop-item.pivot .form-item.optx select', function() {
+	var value = $(this).val();
+	var chartData = chartsData.list[selectOpts.activeChartId];
+
+	if(chartData === undefined) {
+		return;
+	}
+
+	var i = 0, 
+		len = this.options.length, 
+		selected = [],
+		oselected = chartData.xselected;
+	for(;i < len; i++) {
+		if(this.options[i].selected && this.options[i].value != '') {
+			selected.push(this.options[i].value);
+		};
+	}
+
+	if(selected.length == 1) {
+		oselected = selected;
+	} else {
+		if(selected.length > oselected.length) { // 本次增加
+			selected.some(function(v1) {
+				if(!oselected.some(function(v2) {
+					return v1 == v2;
+				})) {
+					oselected.push(v1);
+					return true;
+				}
+			});
+		} else if(oselected.length > selected.length) { // 本次减少
+			oselected.some(function(v1) {
+				if(!selected.some(function(v2) {
+					return v1 == v2;
+				})) {
+					oselected.splice(oselected.indexOf(v1), 1);
+					return true;
+				}
+			});
+		} else {
+			oselected = selected;
+		}
+	}
+
+	chartData.xselected = oselected;
+
+	updataChart(selectOpts.activeChartId);
+});
+$('#property').on('change', '.prop-item.pivot .form-item.opty select', function() {
+	var value = $(this).val();
+	var chartData = chartsData.list[selectOpts.activeChartId];
+
+	if(chartData === undefined) {
+		return;
+	}
+
+	var i = 0, 
+		len = this.options.length, 
+		selected = [],
+		oselected = chartData.yselected;
+	for(;i < len; i++) {
+		if(this.options[i].selected && this.options[i].value != '') {
+			selected.push(this.options[i].value);
+		};
+	}
+
+	if(selected.length == 1) {
+		oselected = selected;
+	} else {
+		if(selected.length > oselected.length) { // 本次增加
+			selected.some(function(v1) {
+				if(!oselected.some(function(v2) {
+					return v1 == v2;
+				})) {
+					oselected.push(v1);
+					return true;
+				}
+			});
+		} else if(oselected.length > selected.length) { // 本次减少
+			oselected.some(function(v1) {
+				if(!selected.some(function(v2) {
+					return v1 == v2;
+				})) {
+					oselected.splice(oselected.indexOf(v1), 1);
+					return true;
+				}
+			});
+		} else {
+			oselected = selected;
+		}
+	}
+
+	chartData.yselected = oselected;
+
+	updataChart(selectOpts.activeChartId);
+});
+
+
+// 表格节点点击
+$('#container').on('click', '.pivotTable i', function() {
+	var $tr = $(this).closest('tr'),
+		$trs = $tr.nextAll(),
+		$this = $(this),
+		key = $tr.data('key'),
+		level = $tr.data('level'),
+		chartId = $tr.data('chartid'),
+		pivotData = $tr.data('pivotdata');
+	var chart = chartsData.list[chartId];
+
+	if($this.hasClass('expand')) {
+		$tr.nextAll().each(function(i, tr) {
+			if($(tr).data('level') == level) {
+				return false;
+			}
+			$(tr).remove();
+		});
+		$this.text('+');
+	} else {
+		getChildTr(pivotData, level+1, chart).forEach(function($newtr){
+			$tr.after($newtr);
+		});
+		$this.text('-');
+	}
+	$this.toggleClass('expand');
+});
+
+</script>
+</body>
+</html>
