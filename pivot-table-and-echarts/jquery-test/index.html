@@ -12,14 +12,14 @@
 	<script src="jquery-3.3.1.min.js"></script>
 	<script src="main.js"></script>
 <script>
-/*
+
 $.ajax({
 	url: './Cars.csv'
 }).done(function(res) {
 	isUpdated = true;
 	analyzingUpdateData(res)
 	showDomLayout();
-});*/
+});
 </script>
 </head>
 <body>
@@ -44,7 +44,7 @@ $.ajax({
 			</div>
 		</div>
 		<div id="stage">
-			<input type="file" id="file-upload">
+			<input type="file" id="file-upload" style="display:none">
 			<span id="upload-state"></span>
 			<div id="container"></div>
 		</div>
