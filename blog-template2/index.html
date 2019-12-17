@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0">
+    <title>Bootstrap 101 Template</title>
+
+    <!-- Bootstrap -->
+    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="http://cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="http://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <style>
+      body {
+        font-family: "Microsoft YaHei", "Helvetica Neue", Helvetica, Arial, sans-serif;
+      }
+      .mo-progress-bar{
+        border-radius: 0;
+        margin-bottom: 0;
+        height: 1px;
+        position: fixed;
+        width: 100%;
+      }
+      .sidebar{
+        background:#222;
+        position: fixed;
+        top: 1px;
+        bottom: 0;
+        left: 0;
+        z-index: 1000;
+        display: block;
+        overflow-x: hidden;
+        overflow-y: auto;
+      }
+      .logo{
+        color: #ffffff;
+        padding-top: 15px;
+      }
+      .logo-img-wrap {
+        width: 100px;
+        height: 100px;
+        overflow: hidden;
+        margin: 0 auto;
+        position: relative;
+      }
+      .logo img{
+        border-radius: 60px;
+        width:100px;
+      }
+      .logo .h3{
+        margin-top: 10px;
+        margin-bottom: 20px;
+      }
+      .logo-img-wrap .music-player .pic{
+        animation: musicPlay 15s linear infinite;
+        -moz-animation: musicPlay 15s linear infinite;
+        -webkit-animation: musicPlay 15s linear infinite;
+        -o-animation: musicPlay 15s linear infinite;
+
+        animation-play-state: paused;
+        -moz-animation-play-state: paused;
+        -webkit-animation-play-state: paused;
+        -o-animation-play-state: paused;
+      }
+      .music-player {
+        position: absolute;
+        top: 0;
+        left: -100px;
+      }
+      .music-player-wrap{
+        position: relative;
+        width: 100px;
+      }
+      .music-player-wrap .pic{
+        width: 100px;
+        height: 100px;
+      }
+      .music-player-wrap .icon{
+        cursor: pointer;
+        position: absolute;
+        background: #333;
+        left: 50%;
+        top: 50%;
+        margin-left: -14px;
+        margin-top: -14px;
+        padding: 4px 6px;
+        border: 2px solid #fff;
+        border-radius: 60px;
+        font-size: 12px;
+      }
+
+      #music-player-spectrum{
+        border:none;
+        width: 0;
+        height: 0;
+        display: none;
+      }
+      .music-player-list{
+        display: none;
+      }
+      .nav-sidebar {
+        margin-right: -15px;
+        margin-left: -15px;
+      }
+      .nav-sidebar a{
+        color: #fff;
+      }
+
+      .nav-sidebar a:hover,.nav-sidebar a.active{
+        color: #222;
+        text-decoration: none;
+        background-color: #fff;
+        padding-left: 25px;
+      }
+      .post{
+        padding-bottom:35px;
+      }
+      .post-meta{
+        color: #999;
+        font-size: 12px;
+      }
+      .post-meta span:first-child{
+        padding-left: 0;
+        border-left: 0;
+      }
+      .post-meta span{
+        border-left: 1px solid #EEE;
+        padding-left:0.5em;
+        padding-right:0.5em;
+      }
+      .post-content{
+        margin-top: 2em;
+      }
+
+      @keyframes musicPlay {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+      @-moz-keyframes musicPlay {
+        0% {
+          -moz-transform: rotate(0deg);
+        }
+        100% {
+          -moz-transform: rotate(360deg);
+        }
+      }
+      @-webkit-keyframes musicPlay {
+        0% {
+          -webkit-transform: rotate(0deg);
+        }
+        100% {
+          -webkit-transform: rotate(360deg);
+        }
+      }
+      @-o-keyframes musicPlay {
+        0% {
+          -o-transform: rotate(0deg);
+        }
+        100% {
+          -o-transform: rotate(360deg);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="progress mo-progress-bar">
+      <div class="progress-bar progress-bar-success" style="width: 70%"></div>
+      <div class="progress-bar progress-bar-info" style="width: 10%"></div>
+      <div class="progress-bar progress-bar-warning" style="width: 10%"></div>
+      <div class="progress-bar progress-bar-danger" style="width: 10%"></div>
+    </div>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-2 sidebar">
+          <div class="logo text-center">
+            <div class="logo-img-wrap">
+              <img class="logo-img" src="images/logo.jpg" />
+              <div class="music-player">
+                <div class="music-player-wrap">
+                  <img class="pic" />
+                  <p class="icon"><span class="glyphicon glyphicon-music"></span></p>
+                </div>
+              </div>
+            </div>
+            <p class="logo-name h3">Mo</p>
+          </div>
+          <canvas id="music-player-spectrum"></canvas>
+          <div class="music-player-list">
+          <div class="panel panel-default">
+            <div class="panel-heading">歌曲列表</div>
+            <div class="panel-body">
+              <ul class="list-group">
+                <li class="list-group-item list-group-item-success">歌曲名称</li>
+              </ul>
+            </div>
+          </div>
+          </div>
+          <ul class="nav nav-sidebar nav-menu">
+            <li><a><span class="glyphicon glyphicon-home" aria-hidden="true"></span> 首页</a></li>
+            <li><a><span class="glyphicon glyphicon-list" aria-hidden="true"></span> 列表</a></li>
+            <li><a class="active"><span class="glyphicon glyphicon-flag" aria-hidden="true"></span> 分类</a></li>
+            <li><a><span class="glyphicon glyphicon-user" aria-hidden="true"></span> 联系我</a></li>
+          </ul>
+        </div>
+        <div class="col-md-10 col-md-offset-2 main">
+          <article class="post">
+            <h2 class="post-title">Bootstrap相关优质项目推荐</h2>
+            <p class="post-meta">
+              <span>时间: <time datetime="2015-01-07T01:06:00+01:00">January 7, 2015</time></span>
+              <span>分类: <a>centos</a></span>
+            </p>
+            <div class="post-content">
+              <p>盐卤是我国数千年来豆腐制作的传统凝固剂。用盐卤作为凝固剂，溶解性好，与豆乳反应速率快，所以凝固速度快，蛋白质的网状组织容易收缩，用盐卤制作的豆腐风味较好，按我国食品添加剂使用卫生标准，用量按正常生产需要[1] 。
+                用盐卤作凝固剂制作豆腐时，浓度一般为18～22°Be′，用量约为原料大豆重量的2%～3.5%。其点卤方式为：在搅动熟豆浆的同时，使盐卤细流连续加入；亦可将盐卤间歇加入熟豆浆中，中间有一定的时间间隔。
+                盐卤豆腐制作方法
+                一、选料：选用新鲜黄豆，用干选法过筛或用水选法筛除杂物、劣质豆、草木和砂土等杂质。
+                盐城红卤豆腐制作高清大图
+                盐城红卤豆腐制作高清大图(76张)
+                二、浸豆：把黄豆浸泡于水中，除去浮于水面的杂质，水量以浸没黄豆为准。在浸泡的过程中，防止泡豆水质变酸变馊，而影响豆浆质量，根据具体情况及时换水1次，浸泡时间根据气温不同而异，一般是夏天泡豆4-6小时；冬天可延长至9一12小时。
+                三、磨浆：把泡好的豆分多次加入磨浆机中，边加黄豆边加水，磨成豆浆糊，一般是0.5千克泡豆加水0.5千克左右，磨浆时，加豆加水要均匀，与磨速协调一致，这样才能磨出细腻而嫩滑的豆浆。
+                四、过滤：豆浆过滤一般用过滤网布或面粉袋，把磨好的豆浆糊5千克(约相当于1千克干黄豆)加入约20℃的温水2.5千克，拌和均匀后装入布袋，吊起布袋，用手摇动，待浆液流出，反复操作3—4次，直至浆液沥干为止。
+                五、煮浆：取过滤后的生豆浆放入锅内，猛火加热煮沸(或用水蒸气加热)煮至锅面豆浆泡沫破裂，撤火便得熟豆浆。
+                六、点浆：点浆一般用盐卤作凝固剂，1千克干黄豆需配用盐卤约10克（将盐卤溶解成25%-30%浓度的液态盐卤水30克）。点浆的方法：把煮沸的豆浆舀出锅后稍冷，待温度降至80℃时即可点浆。点浆时用小勺将豆浆向前不断搅动，慢慢加入盐卤水（卤水下面如有沉淀物，其沉淀物不能加入），当豆浆粘勺后，搅动放慢，加盐卤水的速度也相应放慢，直到豆浆出现玉米大小的豆腐粒时，停止搅动，盖上锅盖，保持约半小时就可以进行包浆工序。
+                七、包浆：包浆就是把豆腐脑倒在铺有棉布的木格内，包好，用重物挤压，把水挤出，一般不能压得太干，若制豆腐干，则可以压至无水滴出为止。
+                盐卤豆腐的加工制作方法：将大豆浸泡、磨浆、滤净、煮浆后加入少量盐卤，使豆腐的蛋白质凝结成“花”后，再放入木框内，压去过剩的水份即成卤水豆腐。这种方法制作的豆腐比石膏制成的豆腐质嫩，无粗糙感。盐卤豆腐还可以制成豆腐干、辣椒豆腐乳、油炸豆腐，营养丰富，消费量大。
+              </p>
+            </div>
+          </article>
+          <article class="post">
+            <h2 class="post-title">Bootstrap相关优质项目推荐</h2>
+            <p class="post-meta">
+              <span>时间: <time datetime="2015-01-07T01:06:00+01:00">January 7, 2015</time></span>
+              <span>分类: <a>centos</a></span>
+            </p>
+            <div class="post-content">
+              <p>盐卤是我国数千年来豆腐制作的传统凝固剂。用盐卤作为凝固剂，溶解性好，与豆乳反应速率快，所以凝固速度快，蛋白质的网状组织容易收缩，用盐卤制作的豆腐风味较好，按我国食品添加剂使用卫生标准，用量按正常生产需要[1] 。
+                用盐卤作凝固剂制作豆腐时，浓度一般为18～22°Be′，用量约为原料大豆重量的2%～3.5%。其点卤方式为：在搅动熟豆浆的同时，使盐卤细流连续加入；亦可将盐卤间歇加入熟豆浆中，中间有一定的时间间隔。
+                盐卤豆腐制作方法
+                一、选料：选用新鲜黄豆，用干选法过筛或用水选法筛除杂物、劣质豆、草木和砂土等杂质。
+                盐城红卤豆腐制作高清大图
+                盐城红卤豆腐制作高清大图(76张)
+                二、浸豆：把黄豆浸泡于水中，除去浮于水面的杂质，水量以浸没黄豆为准。在浸泡的过程中，防止泡豆水质变酸变馊，而影响豆浆质量，根据具体情况及时换水1次，浸泡时间根据气温不同而异，一般是夏天泡豆4-6小时；冬天可延长至9一12小时。
+                三、磨浆：把泡好的豆分多次加入磨浆机中，边加黄豆边加水，磨成豆浆糊，一般是0.5千克泡豆加水0.5千克左右，磨浆时，加豆加水要均匀，与磨速协调一致，这样才能磨出细腻而嫩滑的豆浆。
+                四、过滤：豆浆过滤一般用过滤网布或面粉袋，把磨好的豆浆糊5千克(约相当于1千克干黄豆)加入约20℃的温水2.5千克，拌和均匀后装入布袋，吊起布袋，用手摇动，待浆液流出，反复操作3—4次，直至浆液沥干为止。
+                五、煮浆：取过滤后的生豆浆放入锅内，猛火加热煮沸(或用水蒸气加热)煮至锅面豆浆泡沫破裂，撤火便得熟豆浆。
+                六、点浆：点浆一般用盐卤作凝固剂，1千克干黄豆需配用盐卤约10克（将盐卤溶解成25%-30%浓度的液态盐卤水30克）。点浆的方法：把煮沸的豆浆舀出锅后稍冷，待温度降至80℃时即可点浆。点浆时用小勺将豆浆向前不断搅动，慢慢加入盐卤水（卤水下面如有沉淀物，其沉淀物不能加入），当豆浆粘勺后，搅动放慢，加盐卤水的速度也相应放慢，直到豆浆出现玉米大小的豆腐粒时，停止搅动，盖上锅盖，保持约半小时就可以进行包浆工序。
+                七、包浆：包浆就是把豆腐脑倒在铺有棉布的木格内，包好，用重物挤压，把水挤出，一般不能压得太干，若制豆腐干，则可以压至无水滴出为止。
+                盐卤豆腐的加工制作方法：将大豆浸泡、磨浆、滤净、煮浆后加入少量盐卤，使豆腐的蛋白质凝结成“花”后，再放入木框内，压去过剩的水份即成卤水豆腐。这种方法制作的豆腐比石膏制成的豆腐质嫩，无粗糙感。盐卤豆腐还可以制成豆腐干、辣椒豆腐乳、油炸豆腐，营养丰富，消费量大。
+              </p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="bootstrap/js/vendor/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="bootstrap/js/bootstrap.min.js"></script>
+    <script src="js/jquery.hotkeys.js"></script>
+  <script>
+    var logo_name = 'Mo';
+    var logo_img = 'images/logo.jpg';
+    var music_list = [
+      {
+        'title':'月半小夜曲',
+        'pic':'music/1.jpg',
+        'url':'music/1.mp3'
+      },
+      {
+        'title':'尘缘',
+        'pic':'music/2.jpeg',
+        'url':'music/2.mp3'
+      },
+      {
+        'title':'因为爱情',
+        'pic':'music/3.jpg',
+        'url':'music/3.mp3'
+      },
+      {
+        'title':'你把我灌醉',
+        'pic':'music/4.jpg',
+        'url':'music/4.mp3'
+      },
+      {
+        'title':'想你的夜',
+        'pic':'',
+        'url':'music/想你的夜.mp3'
+      }
+    ];
+
+    var musicPlayer = function(list){
+      this.list = [];
+      this.customFile = null;
+      this.customList = [];
+      this.index = 0;
+      this.show = false;
+      this.audio = null;
+      this.allCapsReachBottom = false;
+      this._init(list);
+    };
+
+    musicPlayer.prototype = {
+      _init: function (list){
+        if(this._checkWinObject() === 0){
+          return;
+        }
+        this.list = list;
+        this.audio = new Audio;
+
+        if(window.AudioContext){
+          this.audio._audioContext = new window.AudioContext();
+          this.audio._audioContext._analyser = this.audio._audioContext.createAnalyser();
+
+          this.audio._audioContext.createMediaElementSource(this.audio).connect(this.audio._audioContext._analyser);
+          this.audio._audioContext._analyser.connect(this.audio._audioContext.destination);
+        }
+
+        this._addAudioEvent();
+        this._addElemEvent();
+        this._addHotKeys();
+        this._draw();
+      },
+      play: function () {
+        if(!this.list[this.index].url && this.customList && (typeof this.list[this.index].index === 'number')){
+          //本地文件
+          var file = this.customFile[this.list[this.index].index];
+          var fr = new FileReader();
+          console.log(this.customFile[this.list[this.index].index])
+          fr.onload = function (e) {
+console.log(e)
+          };
+          fr.onerror = function () {
+            console.log('读取错误')
+          }
+          fr.readAsArrayBuffer(file);
+        }else{
+          if(!this.audio.src){
+            this.audio.src = this.list[this.index].url;
+          }
+          this.audio.play();
+        }
+      },
+      pause: function () {
+        this.audio.pause();
+      },
+      prev: function () {
+        this.index = this.index>0 ? this.index-1 : this.list.length-1;
+        this.audio.src = this.list[this.index].url;
+        this._draw();
+      },
+      next: function () {
+        this.index = this.index<this.list.length-1 ? this.index+1 : 0;
+        this.audio.src = this.list[this.index].url;
+        this._draw();
+      },
+
+      isShow: function (flag) {
+        if(flag !== undefined){
+          this.show = flag;
+        }
+        return this.show;
+      },
+      isPlay: function () {
+        return !this.audio.paused;
+      },
+      _addAudioEvent: function () {
+        var player = this;
+        this.audio.onended = function () {
+          player.next();
+          player.play();
+          /*
+          Notification.requestPermission()
+          var notification = new Notification('正在播放:',{icon:player.list[player.index].pic,body:player.list[player.index].title});
+        */
+        }
+        this.audio.onerror = function () {
+          $('.music-player .icon .glyphicon').removeClass('glyphicon-pause').addClass('glyphicon-play');
+          $('.music-player .pic').css('animation-play-state','paused');
+        }
+        this.audio.onpause = function () {
+          $('.music-player .icon .glyphicon').removeClass('glyphicon-pause').addClass('glyphicon-play');
+          $('.music-player .pic').css('animation-play-state','paused');
+        }
+        this.audio.onplaying = function () {
+          console.log('正在播放: '+player.list[player.index].title)
+          $('.music-player .icon .glyphicon').removeClass('glyphicon-play').addClass('glyphicon-pause');
+          $('.music-player .pic').css('animation-play-state','running');
+          if(player.audio._audioContext && window.requestAnimationFrame){
+            player._drawSpectrum();
+          }
+
+        }
+        this.audio.onvolumechange = function () {
+        }
+
+      },
+      _addElemEvent: function () {
+        var player = this;
+        $('.logo-img-wrap').hover(
+                function () {
+                  if(!player.isShow()){
+                    player.isShow(true);
+                    $(this).find('.music-player').stop().animate({'left':'0'},500);
+                    $(this).closest('.logo').find('.logo-name').html(player.list[player.index].title);
+                  }
+                },
+                function(){
+                  if(!player.isPlay()){
+                    player.isShow(false);
+                    $(this).find('.music-player').stop().animate({'left':'-100'},500);
+                    $(this).closest('.logo').find('.logo-name').html(logo_name);
+
+                    $('#music-player-spectrum').stop().animate({
+                      'height':0,
+                      'margin-bottom':0
+                    },3000,function(){
+                      $(this).css('display','none');
+                    });
+                  }
+                }
+        ).find('.music-player .icon').hover(
+                function(){
+                  $(this).find('.glyphicon').removeClass('glyphicon-music');
+                  if(player.isPlay()){
+                    $(this).find('.glyphicon').addClass('glyphicon-pause');
+                  }else{
+                    $(this).find('.glyphicon').addClass('glyphicon-play');
+                  }
+                },
+                function(){
+                  if(!player.isPlay()) {
+                    $(this).find('.glyphicon').removeClass('glyphicon-play').addClass('glyphicon-music');
+                  }
+                }
+        ).click(function(){
+                  if(player.isPlay()){
+                    player.pause();
+                  }else{
+                    player.play();
+                  }
+        });
+
+
+
+        //listen the drag & drop
+        var dropContainer = $(".music-player-list")[0];
+
+        dropContainer.addEventListener("dragover", function(e) {
+          e.stopPropagation();
+          e.preventDefault();
+          //set the drop mode
+          e.dataTransfer.dropEffect = 'copy';
+        }, false);
+
+        dropContainer.addEventListener("drop", function(e) {
+          e.stopPropagation();
+          e.preventDefault();
+
+          //get the dropped file
+          player.customFile = e.dataTransfer.files;
+
+          for(var i=0;i<player.customFile.length;i++){
+            player.customList.push({
+              'title':player.customFile[i].name,
+              'pic':'',
+              'url':'',
+              'index':i
+            });
+          }
+          player.list = player.list.concat(player.customList);
+console.log(player.customFile);
+          player._draw();
+        }, false);
+      },
+      _addHotKeys: function () {
+        var that = this;
+        $(document).ready(function () {
+          $(this).bind('keydown.left',function (evt){
+            if(that.isPlay()){
+              that.prev();
+              that.play();
+            }
+            return false;
+          });
+          $(this).bind('keydown.right',function (evt){
+            if(that.isPlay()) {
+              that.next();
+              that.play();
+            }
+            return false;
+          });
+        });
+      },
+      _draw: function () {
+        $('.music-player .pic').attr('src',this.list[this.index].pic).attr('alt',this.list[this.index].title);
+        if(this.isShow()){
+          $('.logo .logo-name').html(this.list[this.index].title);
+        }
+
+        var img = new Image();
+        img.onerror = function () {
+          this.onerror = null;
+          $('.music-player .pic').attr('src',logo_img)
+        }
+        img.src = this.list[this.index].pic || undefined;
+
+        var elemList = $('.music-player-list').find('.list-group').html('');
+        for(var i=0; i<this.list.length;i++){
+          if(i == this.index){
+            elemList.append($('<li class="list-group-item list-group-item-success"">'+this.list[i].title+'</li>'));
+          }else{
+            elemList.append($('<li class="list-group-item">'+this.list[i].title+'</li>'));
+          }
+
+        }
+      },
+      _drawSpectrum: function () {
+        var canvas = $('#music-player-spectrum')[0];
+        $(canvas).css({
+          'display':'block',
+          'width':$('.sidebar').css('width'),
+          'margin-left':'-15px',
+          'margin-right':'-15px'
+        }).stop().animate({
+          'height':100,
+          'margin-bottom':15
+        },3000);
+
+        var that = this,
+                cwidth = canvas.width,
+                cheight = canvas.height - 2,
+                meterWidth = 10, //width of the meters in the spectrum
+                gap = 2, //gap between meters
+                capHeight = 2,
+                capStyle = '#fff',
+                meterNum = 300 / (10 + 2), //count of the meters
+                capYPositionArray = [], ////store the vertical position of hte caps for the preivous frame
+                ctx = canvas.getContext('2d'),
+                gradient = ctx.createLinearGradient(0, 0, 0, 100);
+        gradient.addColorStop(1, '#0f0');
+        gradient.addColorStop(0.5, '#ff0');
+        gradient.addColorStop(0, '#f00');
+
+        var drawMeter = function() {
+          var array = new Uint8Array(that.audio._audioContext._analyser.frequencyBinCount);
+          that.audio._audioContext._analyser.getByteFrequencyData(array);
+console.log(array)
+          if (!that.isPlay()) {
+            //fix when some sounds end the value still not back to zero
+            for (var i = array.length - 1; i >= 0; i--) {
+              array[i] = 0;
+            }
+            allCapsReachBottom = true;
+            for (var i = capYPositionArray.length - 1; i >= 0; i--) {
+              allCapsReachBottom = allCapsReachBottom && (capYPositionArray[i] === 0);
+            }
+            if (allCapsReachBottom) {
+              cancelAnimationFrame(that.animationId); //since the sound is stoped and animation finished, stop the requestAnimation to prevent potential memory leak,THIS IS VERY IMPORTANT!
+              return;
+            }
+          }
+
+          var step = Math.round(array.length / meterNum); //sample limited data from the total array
+          ctx.clearRect(0, 0, cwidth, cheight);
+          for (var i = 0; i < meterNum; i++) {
+            var value = array[i * step];
+            if (capYPositionArray.length < Math.round(meterNum)) {
+              capYPositionArray.push(value);
+            };
+            ctx.fillStyle = capStyle;
+            //draw the cap, with transition effect
+            if (value < capYPositionArray[i]) {
+              ctx.fillRect(i * 12, cheight - (--capYPositionArray[i]), meterWidth, capHeight);
+            } else {
+              ctx.fillRect(i * 12, cheight - value, meterWidth, capHeight);
+              capYPositionArray[i] = value;
+            };
+            ctx.fillStyle = gradient; //set the filllStyle to gradient for a better look
+            ctx.fillRect(i * 12 /*meterWidth+gap*/ , cheight - value + capHeight, meterWidth, cheight); //the meter
+          }
+          that.animationId = requestAnimationFrame(drawMeter);
+        }
+        this.animationId = requestAnimationFrame(drawMeter);
+
+
+      },
+      _checkWinObject: function () {
+        if(!(Audio && (new Audio()).canPlayType('audio/mp3'))){
+          console.log('不能播放音乐');
+          return 0;
+        }
+
+        window.AudioContext = window.AudioContext || window.webkitAudioContext || window.mozAudioContext || window.msAudioContext;
+        window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || window.msRequestAnimationFrame;
+        window.Notification = window.Notification || window.webkitNotification || window.mozNotification || window.msNotification;
+
+        if(!window.AudioContext){
+          console.log('不支持:window.AudioContext');
+        }
+        if(!window.requestAnimationFrame){
+          console.log('不支持:window.requestAnimationFrame');
+        }
+        if(!window.Notification){
+          console.log('不支持:window.Notification');
+        }
+      }
+    };
+
+    var myMusicPlayer = new musicPlayer(music_list);
+
+
+
+
+  </script>
+  </body>
+</html>
