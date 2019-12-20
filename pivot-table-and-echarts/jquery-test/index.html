@@ -166,7 +166,7 @@ $('#file-upload').on('change', function() {
 	var file = this.files[0];
 	var uploadState = '';
 	
-	if(file && /\.csv/gi.test(file.name)) {
+	if(file && /\.csv$/.test(file.name)) {
 		isUpdated = true;
 		reader.readAsText(file);
 		reader.onload = analyzingUpdateData;
