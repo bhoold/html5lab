@@ -46,7 +46,6 @@ h1, #tip {
 window.onload = function(){
 	init();
 	loop();
-	setTimeout(loop, interval);
 }
 
 
@@ -55,12 +54,12 @@ const row = 20;
 const total = col*row; // 总细胞数
 const initAliveNum = Math.floor(total/2);// 初始活细胞数量
 
-const interval = 1000; // 刷新间隔
+const interval = 200; // 刷新间隔
 
 
 let generation = 1; // 代数
 let cellList = []; // 细胞列表
-
+let timerId;
 
 
 // 细胞类
@@ -76,7 +75,7 @@ function Cell(x, y) {
 function loop() {
 	generate();
 	render();
-	setTimeout(loop, interval);
+	timerId = setTimeout(loop, interval);
 	generation++;
 	//console.log(generation);
 }
@@ -105,6 +104,7 @@ function generate() {
 		let nextDieCellList = [], //在下一代死亡的细胞列表
 			nextAliveCellList = []; //在下一代存活的细胞列表
         
+		// 检测周围存活的cell
 		for(let i = 0; i < cellList.length; i++) {
 			let cell = cellList[i];
 
@@ -114,7 +114,7 @@ function generate() {
 				neighborWidth = 3; // 周围范围距离
 
 			let aliveCount = 0;// 周围存活细胞的数量
-			for(let i2 = 0; i2 < neighborNum; i2++) {
+			for(let i2 = 0; i2 <= neighborNum; i2++) { // <=neighborNum是因为包括自身
 
 				let x = (cell.x - 1) + colNum;
 				let y = (cell.y - 1) + rowNum;
@@ -126,7 +126,7 @@ function generate() {
 				}
 
 				if(x < 0 || y < 0) {
-					break;
+					continue;
 				}
 
 				for(let i3 = 0; i3 < cellList.length; i3++) {
@@ -141,9 +141,11 @@ function generate() {
 
 			}
 
+
 			if(cell.isAlive) { //如果本身是活动状态，则减去一个
 				aliveCount--;
 			}
+
 
 			if(cell.isAlive && aliveCount < 2) { //少于2个死亡
 				nextDieCellList.push(cell);
@@ -153,7 +155,6 @@ function generate() {
 				nextAliveCellList.push(cell);
 			} else if(aliveCount == 2) { //等于2个不变
 			}
-			
 			
 
 		}
@@ -171,6 +172,8 @@ function generate() {
 		for(let i = 0; i < total; i++) {
 			list.push(i);
 		}
+
+
 		for(let i = 0; i < initAliveNum; i++) {
 			let index = Math.floor((Math.random()*list.length-1)+1);
 			let num = list[index];
@@ -225,7 +228,18 @@ function render() {
 
 
 
+function restart() {
+	clearTimeout(timerId);
 
+	for(let i = 0; i < cellList.length; i++) {
+		cellList[i].isAlive = 0;
+	}
+
+	generation = 1;
+
+	loop();
+
+}
 
 
 
@@ -243,6 +257,7 @@ function render() {
 若周围有3个以上存活细胞，该细胞变成死亡(模拟极度拥挤)<br />
 若周围有低于2个一下存活细胞，该细胞死亡(模拟人口稀疏)<br />
 </p>
+<button onclick="restart()">重新开始</button>
 <div id="container"></div>
 </body>
 </html>
