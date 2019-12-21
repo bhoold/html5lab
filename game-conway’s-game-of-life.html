@@ -45,6 +45,7 @@ h1, #tip {
 <script>
 window.onload = function(){
 	init();
+	loop();
 	setTimeout(loop, interval);
 }
 
@@ -52,9 +53,9 @@ window.onload = function(){
 const col = 20;
 const row = 20;
 const total = col*row; // 总细胞数
-const initAliveNum = 200;// 初始活细胞数量
+const initAliveNum = Math.floor(total/2);// 初始活细胞数量
 
-const interval = 200; // 刷新间隔
+const interval = 1000; // 刷新间隔
 
 
 let generation = 1; // 代数
