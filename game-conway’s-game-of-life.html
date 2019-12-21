@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>康威生命游戏(Conway’s Game of Life)</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0,minimal-ui" />
+    <meta name="renderer" content="webkit">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="format-detection" content="telphone=no,email=no">
+    <meta name="apple-touch-fullscreen" content="yes">
+    <meta name="apple-mobile-web-app-title" content="">
+<style>
+ html,
+ body {
+    margin:0;
+    padding:0;
+    width:100%;
+    height:100%;
+    font-size: 16px;
+}
+#container {
+	position: relative;
+}
+.node {
+    position: absolute;
+    width: 24px;
+    height: 25px;
+    border-right: 1px solid black;
+    border-bottom: 1px solid black;
+}
+.node.alive {
+	background-color: lawngreen;
+}
+.horizontal-1 {
+    border-top: 1px solid black;
+}
+.vertical-1 {
+    border-left: 1px solid black;
+}
+h1, #tip {
+	margin-left: 1em;
+}
+</style>
+<script>
+window.onload = function(){
+	init();
+	setTimeout(loop, interval);
+}
+
+
+const col = 20;
+const row = 20;
+const total = col*row; // 总细胞数
+const initAliveNum = 200;// 初始活细胞数量
+
+const interval = 200; // 刷新间隔
+
+
+let generation = 1; // 代数
+let cellList = []; // 细胞列表
+
+
+
+// 细胞类
+function Cell(x, y) {
+	this.x = x;
+	this.y = y;
+	this.isAlive = 0;
+}
+
+
+
+
+function loop() {
+	generate();
+	render();
+	setTimeout(loop, interval);
+	generation++;
+	//console.log(generation);
+}
+
+
+
+function init() {
+	let x = 0, y = 0;
+	for(let i = 0; i < total; i++) {
+
+		//console.log(x, y);
+		cellList.push(new Cell(x, y));
+
+		y++;
+		if(y >= col) {
+			x++;
+			y = 0;
+		}
+	}
+}
+
+
+
+function generate() {
+	if(generation > 1) {
+		let nextDieCellList = [], //在下一代死亡的细胞列表
+			nextAliveCellList = []; //在下一代存活的细胞列表
+        
+		for(let i = 0; i < cellList.length; i++) {
+			let cell = cellList[i];
+
+			let neighborNum = 8; // 周围细胞的数量
+			let colNum = 0,
+				rowNum = 0,
+				neighborWidth = 3; // 周围范围距离
+
+			let aliveCount = 0;// 周围存活细胞的数量
+			for(let i2 = 0; i2 < neighborNum; i2++) {
+
+				let x = (cell.x - 1) + colNum;
+				let y = (cell.y - 1) + rowNum;
+
+				colNum++;
+				if(colNum === neighborWidth) {
+					colNum = 0;
+					rowNum++;
+				}
+
+				if(x < 0 || y < 0) {
+					break;
+				}
+
+				for(let i3 = 0; i3 < cellList.length; i3++) {
+					let tempCell = cellList[i3];
+					if(tempCell.x === x && tempCell.y === y) {
+						if(tempCell.isAlive) {
+							aliveCount++;
+						}
+						break;
+					}
+				}
+
+			}
+
+			if(cell.isAlive) { //如果本身是活动状态，则减去一个
+				aliveCount--;
+			}
+
+			if(cell.isAlive && aliveCount < 2) { //少于2个死亡
+				nextDieCellList.push(cell);
+			} else if(cell.isAlive && aliveCount > 3) { //多于3个死亡
+				nextDieCellList.push(cell);
+			} else if(!cell.isAlive && aliveCount == 3) { //等于3个复活
+				nextAliveCellList.push(cell);
+			} else if(aliveCount == 2) { //等于2个不变
+			}
+			
+			
+
+		}
+
+		for(let i = 0; i < nextDieCellList.length; i++) {
+			nextDieCellList[i].isAlive = 0;
+		}
+		for(let i = 0; i < nextAliveCellList.length; i++) {
+			nextAliveCellList[i].isAlive = 1;
+		}
+
+	} else {
+		//随机分布
+		let list = [];
+		for(let i = 0; i < total; i++) {
+			list.push(i);
+		}
+		for(let i = 0; i < initAliveNum; i++) {
+			let index = Math.floor((Math.random()*list.length-1)+1);
+			let num = list[index];
+			let cell = cellList[num];
+
+			if(cell === undefined) {
+				throw new Error('cell超出界限，num：'+num+' index：'+index);
+				break;
+			}
+
+			cell.isAlive = 1;
+
+			list.splice(index, 1);
+		}
+	
+	}
+}
+
+
+
+function render() {
+	let elWrap = document.getElementById("container");
+	let fragment = document.createDocumentFragment();
+
+	for (let i = 1; i <= row; i++) {
+		for (let j = 1; j <= col; j++) {
+			let el = document.createElement("div");
+			
+			let cell = cellList[(i-1)*col+(j-1)];
+
+			if(cell === undefined) {
+				throw new Error('cell超出界限， index：'+(i-1)*col+(j-1));
+				break;
+			}
+
+			el.className = "node" + " " + "horizontal-" + (cell.x+1) + " " + "vertical-" + (cell.y+1) + " " + "node-" + (cell.x+1) + "-" + (cell.y+1);
+			el.style.top = ((cell.x+1) * 25) + "px";
+			el.style.left = ((cell.y+1) * 24) + "px";
+			fragment.appendChild(el);
+
+
+			if(cell.isAlive) {
+				el.className += " alive";
+			}
+
+		}
+	}
+
+	elWrap.innerHTML = "";
+	elWrap.appendChild(fragment);
+}
+
+
+
+
+
+
+
+
+
+
+</script>
+<body>
+<h1>康威生命游戏(Conway’s Game of Life)</h1>
+<p id="tip">
+规则<br />
+每个细胞有两种状态——存活或者死亡，每个细胞只与以其自身为中心的细胞产生互动。<br />
+当细胞为死亡状态，若周围有3个存活细胞，则该细胞变成存活状态(模拟繁殖)<br />
+当细胞为存活状态，若周围有2个或3个存活细胞，保持原样<br />
+若周围有3个以上存活细胞，该细胞变成死亡(模拟极度拥挤)<br />
+若周围有低于2个一下存活细胞，该细胞死亡(模拟人口稀疏)<br />
+</p>
+<div id="container"></div>
+</body>
+</html>

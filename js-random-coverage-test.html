@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>js随机值覆盖测试</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0,minimal-ui" />
+    <meta name="renderer" content="webkit">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="format-detection" content="telphone=no,email=no">
+    <meta name="apple-touch-fullscreen" content="yes">
+    <meta name="apple-mobile-web-app-title" content="">
+<style>
+ html,
+ body {
+    margin:0;
+    padding:0;
+    width:100%;
+    height:100%;
+    font-size: 16px;
+}
+#container {
+	position: relative;
+	height: 400px;
+}
+.node {
+    position: absolute;
+    width: 24px;
+    height: 25px;
+    border-right: 1px solid black;
+    border-bottom: 1px solid black;
+}
+.node.alive {
+	background-color: lawngreen;
+}
+.horizontal-1 {
+    border-top: 1px solid black;
+}
+.vertical-1 {
+    border-left: 1px solid black;
+}
+h1, #tip {
+	margin-left: 1em;
+}
+</style>
+<script>
+window.onload = function(){
+	init();
+	setTimeout(loop, interval);
+}
+
+
+const col = 15;
+const row = 15;
+const total = col*row; // 总数
+const initAliveNum = 1;// 每代数量
+
+const interval = 200; // 刷新间隔
+
+
+let generation = 1; // 代数
+let cellList = [];
+
+
+
+
+function Cell(x, y) {
+	this.x = x;
+	this.y = y;
+	this.isAlive = 0;
+}
+
+
+
+
+function loop() {
+	generate();
+	render();
+	setTimeout(loop, interval);
+	generation++;
+	console.log(generation);
+}
+
+
+
+function init() {
+	let x = 0, y = 0;
+	for(let i = 0; i < total; i++) {
+
+		//console.log(x, y);
+		cellList.push(new Cell(x, y));
+
+		y++;
+		if(y >= col) {
+			x++;
+			y = 0;
+		}
+	}
+}
+
+
+
+function generate() {
+	let list = [];
+	for(let i = 0; i < total; i++) {
+		list.push(i);
+	}
+	for(let i = 0; i < initAliveNum; i++) {
+		let index = Math.floor((Math.random()*list.length-1)+1);
+		let num = list[index];
+		let cell = cellList[num];
+
+		if(cell === undefined) {
+			throw new Error('cell超出界限，num：'+num+' index：'+index);
+			break;
+		}
+
+		cell.isAlive = 1;
+
+		list.splice(index, 1);
+	}
+}
+
+
+
+function render() {
+	let elWrap = document.getElementById("container");
+	let fragment = document.createDocumentFragment();
+
+	for (let i = 1; i <= row; i++) {
+		for (let j = 1; j <= col; j++) {
+			let el = document.createElement("div");
+			
+			let cell = cellList[(i-1)*col+(j-1)];
+
+			if(cell === undefined) {
+				throw new Error('cell超出界限， index：'+(i-1)*col+(j-1));
+				break;
+			}
+
+			el.className = "node" + " " + "horizontal-" + (cell.x+1) + " " + "vertical-" + (cell.y+1) + " " + "node-" + (cell.x+1) + "-" + (cell.y+1);
+			el.style.top = ((cell.x+1) * 25) + "px";
+			el.style.left = ((cell.y+1) * 24) + "px";
+			fragment.appendChild(el);
+
+
+			if(cell.isAlive) {
+				el.className += " alive";
+			}
+
+		}
+	}
+
+	elWrap.innerHTML = "";
+	elWrap.appendChild(fragment);
+}
+
+
+
+
+
+
+
+
+
+
+</script>
+<body>
+<h1>js随机值覆盖测试</h1>
+<div id="container"></div>
+</body>
+</html>
